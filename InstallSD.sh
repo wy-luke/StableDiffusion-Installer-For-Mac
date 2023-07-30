@@ -23,7 +23,7 @@ fi
 echo
 
 echo "############ Check and install Git ############"
-if ! command -v micromamba &>/dev/null; then
+if ! command -v git &>/dev/null; then
     brew install git
 else
     echo "Git already installed."
