@@ -1,5 +1,8 @@
 #! /bin/bash
 
+echo "开始安装 Stable Diffusion WebUI"
+echo "如果安装失败请重试一次"
+
 echo "############ Check and install Homebrew ##############"
 # Homebrew: The missing package manager for macOS
 # More: https://brew.sh/
