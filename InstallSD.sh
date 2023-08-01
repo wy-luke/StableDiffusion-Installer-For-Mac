@@ -4,6 +4,8 @@ echo "############ Check and install Homebrew ##############"
 # Homebrew: The missing package manager for macOS
 # More: https://brew.sh/
 if ! command -v brew &>/dev/null; then
+    # TODO: Force install without confirmation
+    echo "请下面按照提示，按回车键"
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 else
     echo "Homebrew already installed."
