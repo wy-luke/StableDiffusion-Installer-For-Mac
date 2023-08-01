@@ -14,7 +14,7 @@
 
 4. 如果提示输入，只需且**只**按**回车键**
 5. 如果出现类似下面的内容，即为安装成功
-    ![success](images/success.png)
-6. 打开浏览器，输入 `http://127.0.0.1:7860`(即上图划线部分)，即可打开 Stable Diffusion web UI
 
-To help you install Stable Diffusion web UI easily on your mac.
+    ![success](images/success.png)
+
+6. 打开浏览器，输入 `http://127.0.0.1:7860`(即上图划线部分)，即可打开 Stable Diffusion web UI
