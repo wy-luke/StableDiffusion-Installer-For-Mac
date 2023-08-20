@@ -1,7 +1,7 @@
 #! /bin/bash
 
 echo "开始安装 Stable Diffusion WebUI"
-echo "如果安装失败请重试一次"
+echo "如果失败请重试"
 
 echo "############ Check and install Homebrew ##############"
 # Homebrew: The missing package manager for macOS
@@ -9,15 +9,16 @@ echo "############ Check and install Homebrew ##############"
 if ! command -v brew &>/dev/null; then
     # TODO: Force install without confirmation
     echo "请下面按照提示，按回车键"
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    yes | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    echo "Homebrew has been installed successfully"
 else
-    echo "Homebrew already installed."
+    echo "Homebrew has already been installed"
 fi
 echo
 
 echo "############ Check and install micromamba ############"
 # About mamba: A super fast Python package and environment manager (compared to conda)
-# About mamba: A tiny version of the mamba. No base environment nor a default version of Python
+# About micromamba: A tiny version of the mamba. No base environment nor a default version of Python
 # More: https://mamba.readthedocs.io/en/latest/index.html
 if ! command -v micromamba &>/dev/null; then
     # Install micromamba
@@ -26,12 +27,13 @@ if ! command -v micromamba &>/dev/null; then
     micromamba shell init -s bash -p ~/micromamba
     source ~/.bash_profile
     source ~/.bashrc
-    # Config micromamba, add default channels.
+    # Set default channels for micromamba
     micromamba config append channels conda-forge
     micromamba config append channels nodefaults
     micromamba config set channel_priority strict
+    echo "micromamba has been installed successfully"
 else
-    echo "micromamba already installed."
+    echo "micromamba has already been installed"
 fi
 echo
 
@@ -40,17 +42,19 @@ echo "############ Check and install Git ###################"
 # More: https://git-scm.com/
 if ! command -v git &>/dev/null; then
     brew install git
+    echo "Git has been installed successfully"
 else
-    echo "Git already installed."
+    echo "Git has already been installed"
 fi
 echo
 
 echo "############ Download code ###########################"
-# Check if SD's folder exits
+# Check if stable-diffusion-webui's folder exits
 if [ ! -d "stable-diffusion-webui" ]; then
     git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git
+    echo "Code has been installed successfully"
 else
-    echo "Code already downloaded."
+    echo "Code has already been downloaded"
 fi
 # Enter the SD's folder
 cd stable-diffusion-webui
@@ -58,13 +62,17 @@ echo
 
 echo "############ Create virtual env ######################"
 # Activate micromamba in current shell
-export MAMBA_ROOT_PREFIX="~/micromamba" # Optional
+export MAMBA_ROOT_PREFIX="~/micromamba" # Optional, use default value
 eval "$(micromamba shell hook -s posix)"
 
-# TODO: Check if the env exits
-#if micromamba env list | grep ".*sd.*" >/dev/null 2>&1; then
-micromamba create -n sd python=3.10.6
-#fi
+# Check if the env exits
+if micromamba env list | grep sd >/dev/null; then
+    echo "The sd env already exists"
+else
+    micromamba create -n sd python=3.10.6
+    echo "The sd env has been created successfully"
+fi
+# Activate sd env
 micromamba activate sd
 # Activate pyvenv to update pip to avoid some errors
 python -m venv venv
@@ -74,4 +82,6 @@ pip install --upgrade pip
 pip cache purge
 
 # Install Stable Diffusion
+echo "开始安装 Stable Diffusion"
+echo "Start to install Stable Diffusion"
 ./webui.sh
