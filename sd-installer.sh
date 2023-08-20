@@ -8,9 +8,20 @@ echo "############ Check and install Homebrew ##############"
 # More: https://brew.sh/
 if ! command -v brew &>/dev/null; then
     # TODO: Force install without confirmation
-    echo "请下面按照提示，按回车键"
-    yes | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    echo "Homebrew has been installed successfully"
+    # echo "请下面按照提示，按回车键"
+    if curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh -o install.sh && [ -s install.sh ]; then
+        yes | /bin/bash install.sh
+        if [ $? -eq 0 ]; then
+            echo "Homebrew has been installed successfully"
+        else
+            echo "Failed to install Homebrew"
+            exit 1
+        fi
+    else
+        echo "Homebrew 安装文件下载失败，请检查网络连接"
+        echo "Failed to download Homebrew installation script, please check your network connection"
+        exit 1
+    fi
 else
     echo "Homebrew has already been installed"
 fi
