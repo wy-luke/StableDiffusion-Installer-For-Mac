@@ -4,12 +4,12 @@
 
 使用步骤：
 
-1. [右键这里存储为](https://github.com/wy-luke/StableDiffusion-Installer-For-Mac/raw/main/InstallSD.sh)，将文件放至桌面，并确保文件名不变，为 `InstallSD.sh`
+1. [右键这里存储为](https://github.com/wy-luke/StableDiffusion-Installer-For-Mac/raw/main/sd-installer.sh)，将文件放至桌面，并确保文件名不变，为 `sd-installer.sh`
 2. 在**应用程序**中，找到**终端**并打开 <img src="./images/terminal.png" alt="terminal" width="22"/>
 3. 复制下面的命令到终端中，按**回车键**执行命令，然后安装就会自动开始，只需等待安装完成
 
     ```bash
-    bash ~/Desktop/InstallSD.sh
+    bash ~/Desktop/sd-installer.sh
     ```
 
 4. 如果提示输入，只需且**只**按**回车键**
