@@ -1,7 +1,21 @@
 #! /bin/bash
 
-echo "开始安装 Stable Diffusion WebUI"
-echo "如果失败请重试"
+echo "开始安装 Stable Diffusion web UI ......"
+
+# Define a function to handle errors
+function handle_error {
+    echo "An error occurred"
+    read -p "Do you want to retry? [y/n] " choice
+    if [[ $choice == [yY] ]]; then
+        # Retry the command
+        $last_command
+    else
+        # Exit the script
+        exit 1
+    fi
+}
+# Set the error handler
+trap 'handle_error' ERR
 
 echo "############ Check and install Homebrew ##############"
 # Homebrew: The missing package manager for macOS
