@@ -63,10 +63,13 @@ if ! command -v micromamba &>/dev/null; then
     verify_installation micromamba
     # Init micromamba
     micromamba shell init -s bash -p ~/micromamba
-    if [ -e ~/.bash_profile ]; then
+    if [ -f ~/.profile ]; then
+        source ~/.profile
+    fi
+    if [ -f ~/.bash_profile ]; then
         source ~/.bash_profile
     fi
-    if [ -e ~/.bashrc ]; then
+    if [ -f ~/.bashrc ]; then
         source ~/.bashrc
     fi
     # Set default channels for micromamba
