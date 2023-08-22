@@ -2,13 +2,15 @@
 
 echo "开始安装 Stable Diffusion web UI ......"
 
+root_path=$(pwd)
+
 # Define a function to handle errors
 function handle_error {
     echo_red "安装失败，是否重试？"
     read -rp "Installation failed, do you want to retry? [y/n] " choice
     if [[ $choice == [yY] ]]; then
         # Retry the command
-        bash ./sd-installer.sh
+        bash "$root_path/sd-installer.sh"
     else
         # Exit the script
         exit 1
@@ -38,8 +40,8 @@ echo "############ Check and install Homebrew ##############"
 # Homebrew: The missing package manager for macOS
 # More: https://brew.sh/
 if ! command -v brew &>/dev/null; then
-    if curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh -o install.sh && [ -s install.sh ]; then
-        yes | /bin/bash install.sh
+    if curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh -o install_brew.sh && [ -f $root_path/install_brew.sh ]; then
+        yes | /bin/bash "$root_path/install_brew.sh"
         eval "$(/opt/homebrew/bin/brew shellenv)"
         verify_installation brew
     else
@@ -73,10 +75,11 @@ if ! command -v micromamba &>/dev/null; then
         source ~/.bashrc
     fi
     # Set default channels for micromamba
-    micromamba config append channels conda-forge && micromamba config append channels nodefaults && micromamba config set channel_priority strict
-    if [ $? -eq 0 ]; then
-        echo_green "micromamba has been configed successfully"
-    fi
+    micromamba config append channels conda-forge
+    micromamba config append channels nodefaults
+    micromamba config set channel_priority strict
+
+    echo_green "micromamba has been configed"
 else
     echo_green "micromamba has already been installed"
 fi
