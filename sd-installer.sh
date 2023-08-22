@@ -8,7 +8,7 @@ function handle_error {
     read -p "Do you want to retry? [y/n] " choice
     if [[ $choice == [yY] ]]; then
         # Retry the command
-        $last_command
+        bash ./sd-installer.sh
     else
         # Exit the script
         exit 1
@@ -17,24 +17,28 @@ function handle_error {
 # Set the error handler
 trap 'handle_error' ERR
 
+function verify_installation {
+    if [ $? -eq 0 ] && command -v $1 &>/dev/null; then
+        echo "'$1' has been installed successfully"
+    else
+        echo "Failed to install '$1'"
+        exit 1
+    fi
+}
+
 echo "############ Check and install Homebrew ##############"
 # Homebrew: The missing package manager for macOS
 # More: https://brew.sh/
 if ! command -v brew &>/dev/null; then
-    # TODO: Force install without confirmation
-    # echo "请下面按照提示，按回车键"
     if curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh -o install.sh && [ -s install.sh ]; then
         yes | /bin/bash install.sh
-        if [ $? -eq 0 ]; then
-            echo "Homebrew has been installed successfully"
-        else
-            echo "Failed to install Homebrew"
-            exit 1
-        fi
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+        verify_installation brew
     else
-        echo "Homebrew 安装文件下载失败，请检查网络连接"
-        echo "Failed to download Homebrew installation script, please check your network connection"
+        echo -e "\033[31mError: Homebrew 安装文件下载失败，请检查网络连接\033[0m"
+        echo -e "\033[31mError: Failed to download Homebrew installation script, please check your network connection\033[0m"
         exit 1
+
     fi
 else
     echo "Homebrew has already been installed"
@@ -48,6 +52,7 @@ echo "############ Check and install micromamba ############"
 if ! command -v micromamba &>/dev/null; then
     # Install micromamba
     brew install micromamba
+    verify_installation micromamba
     # Init micromamba
     micromamba shell init -s bash -p ~/micromamba
     source ~/.bash_profile
@@ -67,7 +72,7 @@ echo "############ Check and install Git ###################"
 # More: https://git-scm.com/
 if ! command -v git &>/dev/null; then
     brew install git
-    echo "Git has been installed successfully"
+    verify_installation git
 else
     echo "Git has already been installed"
 fi
