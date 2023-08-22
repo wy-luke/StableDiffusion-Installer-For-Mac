@@ -4,8 +4,8 @@ echo "开始安装 Stable Diffusion web UI ......"
 
 # Define a function to handle errors
 function handle_error {
-    echo "An error occurred"
-    read -p "Do you want to retry? [y/n] " choice
+    echo_red "安装失败，是否重试？"
+    read -rp "Installation failed, do you want to retry? [y/n] " choice
     if [[ $choice == [yY] ]]; then
         # Retry the command
         bash ./sd-installer.sh
@@ -19,11 +19,19 @@ trap 'handle_error' ERR
 
 function verify_installation {
     if [ $? -eq 0 ] && command -v $1 &>/dev/null; then
-        echo "'$1' has been installed successfully"
+        echo_green "$1 has been installed successfully"
     else
-        echo "Failed to install '$1'"
+        echo_red "Failed to install $1"
         exit 1
     fi
+}
+
+function echo_green {
+    echo -e "\033[32m$1\033[0m"
+}
+
+function echo_red {
+    echo -e "\033[31m$1\033[0m"
 }
 
 echo "############ Check and install Homebrew ##############"
@@ -35,13 +43,13 @@ if ! command -v brew &>/dev/null; then
         eval "$(/opt/homebrew/bin/brew shellenv)"
         verify_installation brew
     else
-        echo -e "\033[31mError: Homebrew 安装文件下载失败，请检查网络连接\033[0m"
-        echo -e "\033[31mError: Failed to download Homebrew installation script, please check your network connection\033[0m"
+        echo_red "Homebrew 安装文件下载失败，请检查网络连接"
+        echo_red "Failed to download Homebrew installation script, please check your network connection"
         exit 1
 
     fi
 else
-    echo "Homebrew has already been installed"
+    echo_green "Homebrew has already been installed"
 fi
 echo
 
@@ -58,12 +66,12 @@ if ! command -v micromamba &>/dev/null; then
     source ~/.bash_profile
     source ~/.bashrc
     # Set default channels for micromamba
-    micromamba config append channels conda-forge
-    micromamba config append channels nodefaults
-    micromamba config set channel_priority strict
-    echo "micromamba has been installed successfully"
+    micromamba config append channels conda-forge && micromamba config append channels nodefaults && micromamba config set channel_priority strict
+    if [ $? -eq 0 ]; then
+        echo_green "micromamba has been configed successfully"
+    fi
 else
-    echo "micromamba has already been installed"
+    echo_green "micromamba has already been installed"
 fi
 echo
 
@@ -74,7 +82,7 @@ if ! command -v git &>/dev/null; then
     brew install git
     verify_installation git
 else
-    echo "Git has already been installed"
+    echo_green "Git has already been installed"
 fi
 echo
 
@@ -82,9 +90,9 @@ echo "############ Download code ###########################"
 # Check if stable-diffusion-webui's folder exits
 if [ ! -d "stable-diffusion-webui" ]; then
     git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git
-    echo "Code has been installed successfully"
+    echo_green "Code has been installed successfully"
 else
-    echo "Code has already been downloaded"
+    echo_green "Code has already been downloaded"
 fi
 # Enter the SD's folder
 cd stable-diffusion-webui
@@ -97,10 +105,10 @@ eval "$(micromamba shell hook -s posix)"
 
 # Check if the env exits
 if micromamba env list | grep sd >/dev/null; then
-    echo "The sd env already exists"
+    echo_green "The sd env already exists"
 else
     micromamba create -n sd python=3.10.6
-    echo "The sd env has been created successfully"
+    echo_green "The sd env has been created successfully"
 fi
 # Activate sd env
 micromamba activate sd
