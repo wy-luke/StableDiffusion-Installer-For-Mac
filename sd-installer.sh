@@ -63,8 +63,12 @@ if ! command -v micromamba &>/dev/null; then
     verify_installation micromamba
     # Init micromamba
     micromamba shell init -s bash -p ~/micromamba
-    source ~/.bash_profile
-    source ~/.bashrc
+    if [ -e ~/.bash_profile ]; then
+        source ~/.bash_profile
+    fi
+    if [ -e ~/.bashrc ]; then
+        source ~/.bashrc
+    fi
     # Set default channels for micromamba
     micromamba config append channels conda-forge && micromamba config append channels nodefaults && micromamba config set channel_priority strict
     if [ $? -eq 0 ]; then
