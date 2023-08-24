@@ -41,8 +41,10 @@ function echo_red {
 echo "############ Check and install Homebrew ##############"
 # Homebrew: The missing package manager for macOS
 # More: https://brew.sh/
+eval "$(/opt/homebrew/bin/brew shellenv)"
 if ! command -v brew &>/dev/null; then
     if curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh -o install_brew.sh && [ -f $root_path/install_brew.sh ]; then
+        chmod +x "$root_path/install_brew.sh"
         yes | /bin/bash -c "$root_path/install_brew.sh"
         eval "$(/opt/homebrew/bin/brew shellenv)"
         verify_installation brew
@@ -53,8 +55,6 @@ if ! command -v brew &>/dev/null; then
 
     fi
 else
-    eval "$(/opt/homebrew/bin/brew shellenv)"
-    verify_installation brew
     echo_green "Homebrew has already been installed"
 fi
 
@@ -64,11 +64,12 @@ echo "############ Check and install micromamba ############"
 # About mamba: A super fast Python package and environment manager (compared to conda)
 # About micromamba: A tiny version of the mamba. No base environment nor a default version of Python
 # More: https://mamba.readthedocs.io/en/latest/index.html
+export MAMBA_ROOT_PREFIX="~/micromamba" # Optional, use default value
+eval "$(/opt/homebrew/bin/micromamba shell hook -s bash)"
 if ! command -v micromamba &>/dev/null; then
     # Install micromamba
     brew install micromamba
     # Activate micromamba in current shell
-    export MAMBA_ROOT_PREFIX="~/micromamba" # Optional, use default value
     eval "$(/opt/homebrew/bin/micromamba shell hook -s bash)"
     verify_installation micromamba
     # # Init micromamba
@@ -89,10 +90,6 @@ if ! command -v micromamba &>/dev/null; then
 
     echo_green "micromamba has been configed"
 else
-    # Activate micromamba in current shell
-    export MAMBA_ROOT_PREFIX="~/micromamba" # Optional, use default value
-    eval "$(/opt/homebrew/bin/micromamba shell hook -s bash)"
-    verify_installation micromamba
     echo_green "micromamba has already been installed"
 fi
 echo
