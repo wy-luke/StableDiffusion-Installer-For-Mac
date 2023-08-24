@@ -116,7 +116,7 @@ echo "############ Create virtual env ######################"
 if micromamba env list | grep sd >/dev/null; then
     echo_green "The sd env already exists"
 else
-    micromamba create -n sd python=3.10.6
+    yes | micromamba create -n sd python=3.10.6
     echo_green "The sd env has been created successfully"
 fi
 # Activate sd env
