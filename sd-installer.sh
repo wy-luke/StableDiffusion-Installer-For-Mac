@@ -43,7 +43,7 @@ echo "############ Check and install Homebrew ##############"
 # More: https://brew.sh/
 if ! command -v brew &>/dev/null; then
     if curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh -o install_brew.sh && [ -f $root_path/install_brew.sh ]; then
-        yes | /bin/bash "$root_path/install_brew.sh"
+        yes | /bin/bash -c "$root_path/install_brew.sh"
         eval "$(/opt/homebrew/bin/brew shellenv)"
         verify_installation brew
     else
@@ -53,8 +53,11 @@ if ! command -v brew &>/dev/null; then
 
     fi
 else
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+    verify_installation brew
     echo_green "Homebrew has already been installed"
 fi
+
 echo
 
 echo "############ Check and install micromamba ############"
@@ -67,7 +70,7 @@ if ! command -v micromamba &>/dev/null; then
     verify_installation micromamba
     # Activate micromamba in current shell
     export MAMBA_ROOT_PREFIX="~/micromamba" # Optional, use default value
-    eval "$(micromamba shell hook -s posix)"
+    eval "$(micromamba shell hook -s bash)"
     # # Init micromamba
     # micromamba shell init -s bash -p ~/micromamba
     # if [ -f ~/.profile ]; then
