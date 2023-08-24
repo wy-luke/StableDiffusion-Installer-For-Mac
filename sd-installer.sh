@@ -63,17 +63,20 @@ if ! command -v micromamba &>/dev/null; then
     # Install micromamba
     brew install micromamba
     verify_installation micromamba
-    # Init micromamba
-    micromamba shell init -s bash -p ~/micromamba
-    if [ -f ~/.profile ]; then
-        source ~/.profile
-    fi
-    if [ -f ~/.bash_profile ]; then
-        source ~/.bash_profile
-    fi
-    if [ -f ~/.bashrc ]; then
-        source ~/.bashrc
-    fi
+    # Activate micromamba in current shell
+    export MAMBA_ROOT_PREFIX="~/micromamba" # Optional, use default value
+    eval "$(micromamba shell hook -s posix)"
+    # # Init micromamba
+    # micromamba shell init -s bash -p ~/micromamba
+    # if [ -f ~/.profile ]; then
+    #     source ~/.profile
+    # fi
+    # if [ -f ~/.bash_profile ]; then
+    #     source ~/.bash_profile
+    # fi
+    # if [ -f ~/.bashrc ]; then
+    #     source ~/.bashrc
+    # fi
     # Set default channels for micromamba
     micromamba config append channels conda-forge
     micromamba config append channels nodefaults
@@ -109,10 +112,6 @@ cd stable-diffusion-webui
 echo
 
 echo "############ Create virtual env ######################"
-# Activate micromamba in current shell
-export MAMBA_ROOT_PREFIX="~/micromamba" # Optional, use default value
-eval "$(micromamba shell hook -s posix)"
-
 # Check if the env exits
 if micromamba env list | grep sd >/dev/null; then
     echo_green "The sd env already exists"
