@@ -67,10 +67,10 @@ echo "############ Check and install micromamba ############"
 if ! command -v micromamba &>/dev/null; then
     # Install micromamba
     brew install micromamba
-    verify_installation micromamba
     # Activate micromamba in current shell
     export MAMBA_ROOT_PREFIX="~/micromamba" # Optional, use default value
-    eval "$(micromamba shell hook -s bash)"
+    eval "$(/opt/homebrew/bin/micromamba shell hook -s bash)"
+    verify_installation micromamba
     # # Init micromamba
     # micromamba shell init -s bash -p ~/micromamba
     # if [ -f ~/.profile ]; then
@@ -89,6 +89,10 @@ if ! command -v micromamba &>/dev/null; then
 
     echo_green "micromamba has been configed"
 else
+    # Activate micromamba in current shell
+    export MAMBA_ROOT_PREFIX="~/micromamba" # Optional, use default value
+    eval "$(/opt/homebrew/bin/micromamba shell hook -s bash)"
+    verify_installation micromamba
     echo_green "micromamba has already been installed"
 fi
 echo
