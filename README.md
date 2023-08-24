@@ -8,7 +8,7 @@
 2. 复制下面的命令到终端中，按**回车键**执行命令，然后安装就会自动开始，只需等待安装完成
 
     ```bash
-    /bin/bash -c  "$(curl -fsSL  https://raw.githubusercontent.com/wy-luke/StableDiffusion-Installer-For-Mac/main/sd-installer.sh)"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/wy-luke/StableDiffusion-Installer-For-Mac/main/sd-installer.sh)"
     ```
 
 3. 如果提示输入，需且**只需**按**回车键**
