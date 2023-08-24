@@ -129,6 +129,7 @@ else
     echo_green "The sd env has been created successfully"
 fi
 # Activate sd env
+echo_green "Activate sd env"
 micromamba activate sd
 # Activate pyvenv to update pip to avoid some errors
 python -m venv venv
