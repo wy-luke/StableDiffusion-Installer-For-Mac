@@ -1,5 +1,7 @@
 #! /bin/bash
 
+set -u
+
 echo "开始安装 Stable Diffusion web UI ......"
 
 root_path=$(pwd)
