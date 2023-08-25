@@ -58,6 +58,9 @@ else
     echo_green "Homebrew has already been installed"
 fi
 
+echo_green "Install the packages required"
+brew install cmake protobuf rust wget
+
 echo
 
 echo "############ Check and install micromamba ############"
