@@ -139,6 +139,11 @@ pip install --upgrade pip
 pip cache purge
 
 # Install Stable Diffusion
-echo "开始安装 Stable Diffusion"
-echo "Start to install Stable Diffusion"
+echo "############ 开始安装 Stable Diffusion ################"
+echo "############ Start to install Stable Diffusion ######"
 ./webui.sh
+
+echo "############ Clean ###################################"
+rm $root_path/install_brew.sh
+
+echo "############ Install Stable Diffusion successfully ###"
