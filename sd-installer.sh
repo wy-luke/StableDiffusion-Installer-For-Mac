@@ -125,18 +125,23 @@ echo "############ Create virtual env ######################"
 if micromamba env list | grep sd >/dev/null; then
     echo_green "The sd env already exists"
 else
-    yes | micromamba create -n sd python=3.10.6
+    yes | micromamba create -n sd python=3.10
     echo_green "The sd env has been created successfully"
 fi
 # Activate sd env
 echo_green "Activate sd env"
 micromamba activate sd
-# Activate pyvenv to update pip to avoid some errors
-python -m venv venv
+if [ ! -d "stable-diffusion-webui" ]; then
+    # Activate pyvenv to update pip to avoid some errors
+    python -m venv venv
+fi
 source venv/bin/activate
-pip install --upgrade pip
+# pip install --upgrade pip
 # Delete pip cache to avoid some errors
 pip cache purge
+
+# Install required packages via micromamba
+# micromamba install --yes --file requirements_versions.txt
 
 # Install Stable Diffusion
 echo "############ 开始安装 Stable Diffusion ################"
