@@ -16,6 +16,8 @@ function handle_error {
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/wy-luke/StableDiffusion-Installer-For-Mac/main/sd-installer.sh)"
     else
         # Exit the script
+        echo "############ Clean ###################################"
+        rm $root_path/install_brew.sh
         exit 1
     fi
 }
