@@ -8,8 +8,9 @@ root_path=$(pwd)
 
 # Define a function to handle errors
 function handle_error {
-    echo_red "安装失败，是否重试？"
+    echo_red "安装失败，是否重试？ [y/n] "
     read -rp "Installation failed, do you want to retry? [y/n] " choice
+    choice=${choice:-y}
     if [[ $choice == [yY] ]]; then
         # Retry the command
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/wy-luke/StableDiffusion-Installer-For-Mac/main/sd-installer.sh)"
