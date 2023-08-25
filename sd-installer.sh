@@ -12,7 +12,7 @@ function handle_error {
     read -rp "Installation failed, do you want to retry? [y/n] " choice
     if [[ $choice == [yY] ]]; then
         # Retry the command
-        bash "$root_path/sd-installer.sh"
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/wy-luke/StableDiffusion-Installer-For-Mac/main/sd-installer.sh)"
     else
         # Exit the script
         exit 1
