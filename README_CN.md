@@ -4,7 +4,7 @@
 
 # Stable Diffusion Installer For Mac
 
-帮助你快速地将 Stable Diffusion web UI 安装在你的 mac 上。
+帮助你**快速、轻松**地将 Stable Diffusion web UI 安装在你的 mac 上。
 
 使用步骤：
 
