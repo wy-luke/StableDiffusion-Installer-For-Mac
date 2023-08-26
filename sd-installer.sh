@@ -2,9 +2,16 @@
 
 set -u
 
-echo "开始安装 Stable Diffusion web UI ......"
+# Set the installation path
+installation_path=$HOME #TODO: Make it configurable
 
-root_path=$(pwd)
+tmp_path="$HOME/.sd-installer"
+mkdir -p $root_path
+
+function clean_up {
+    echo "############ Clean ###################################"
+    rm -rf $tmp_path
+}
 
 # Define a function to handle errors
 function handle_error {
@@ -15,9 +22,8 @@ function handle_error {
         # Retry the command
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/wy-luke/StableDiffusion-Installer-For-Mac/main/sd-installer.sh)"
     else
+        clean_up
         # Exit the script
-        echo "############ Clean ###################################"
-        rm $root_path/install_brew.sh
         exit 1
     fi
 }
@@ -41,14 +47,26 @@ function echo_red {
     echo -e "\033[31m$1\033[0m"
 }
 
+echo "############ 开始安装 Stable Diffusion web UI #########" && echo
+
 echo "############ Check and install Homebrew ##############"
 # Homebrew: The missing package manager for macOS
 # More: https://brew.sh/
+
+# Try to activate homebrew first
 eval "$(/opt/homebrew/bin/brew shellenv)"
+
 if ! command -v brew &>/dev/null; then
-    if curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh -o install_brew.sh && [ -f $root_path/install_brew.sh ]; then
-        chmod +x "$root_path/install_brew.sh"
-        yes | /bin/bash -c "$root_path/install_brew.sh"
+    if curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh -o "$tmp_path/install_brew.sh" && [ -f "$tmp_path/install_brew.sh" ]; then
+
+        # Grant the permission to install Homebrew
+        sudo dseditgroup -o edit -a $(whoami) -t user admin
+        sudo dseditgroup -o edit -a $(whoami) -t user wheel
+
+        # Grant the permission to execute the installation script
+        chmod +x "$tmp_path/install_brew.sh"
+
+        yes | /bin/bash -c "$tmp_path/install_brew.sh"
         eval "$(/opt/homebrew/bin/brew shellenv)"
         verify_installation brew
     else
@@ -70,25 +88,18 @@ echo "############ Check and install micromamba ############"
 # About mamba: A super fast Python package and environment manager (compared to conda)
 # About micromamba: A tiny version of the mamba. No base environment nor a default version of Python
 # More: https://mamba.readthedocs.io/en/latest/index.html
+
+# Try to activate micromamba first
 export MAMBA_ROOT_PREFIX="~/micromamba" # Optional, use default value
 eval "$(/opt/homebrew/bin/micromamba shell hook -s bash)"
+
 if ! command -v micromamba &>/dev/null; then
     # Install micromamba
     brew install micromamba
     # Activate micromamba in current shell
     eval "$(/opt/homebrew/bin/micromamba shell hook -s bash)"
     verify_installation micromamba
-    # # Init micromamba
-    # micromamba shell init -s bash -p ~/micromamba
-    # if [ -f ~/.profile ]; then
-    #     source ~/.profile
-    # fi
-    # if [ -f ~/.bash_profile ]; then
-    #     source ~/.bash_profile
-    # fi
-    # if [ -f ~/.bashrc ]; then
-    #     source ~/.bashrc
-    # fi
+
     # Set default channels for micromamba
     micromamba config append channels conda-forge
     micromamba config append channels nodefaults
@@ -113,14 +124,15 @@ echo
 
 echo "############ Download code ###########################"
 # Check if stable-diffusion-webui's folder exits
-if [ ! -d "stable-diffusion-webui" ]; then
+if [ ! -d "$installation_path/stable-diffusion-webui" ]; then
+    cd $installation_path
     git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git
     echo_green "Code has been installed successfully"
 else
     echo_green "Code has already been downloaded"
 fi
 # Enter the SD's folder
-cd stable-diffusion-webui
+cd "$installation_path/stable-diffusion-webui"
 echo
 
 echo "############ Create virtual env ######################"
@@ -151,7 +163,6 @@ echo "############ 开始安装 Stable Diffusion ################"
 echo "############ Start to install Stable Diffusion ######"
 ./webui.sh
 
-echo "############ Clean ###################################"
-rm $root_path/install_brew.sh
+clean_up
 
 echo "############ Install Stable Diffusion successfully ###"
