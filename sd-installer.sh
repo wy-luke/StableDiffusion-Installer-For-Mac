@@ -2,8 +2,6 @@
 
 set -u
 
-echo "开始安装 Stable Diffusion web UI ......"
-
 # Set the root path
 root_path=$HOME
 
@@ -43,10 +41,15 @@ function echo_red {
     echo -e "\033[31m$1\033[0m"
 }
 
+echo "############ 开始安装 Stable Diffusion web UI #########" && echo
+
 echo "############ Check and install Homebrew ##############"
 # Homebrew: The missing package manager for macOS
 # More: https://brew.sh/
+
+# Try to activate homebrew first
 eval "$(/opt/homebrew/bin/brew shellenv)"
+
 if ! command -v brew &>/dev/null; then
     if curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh -o install_brew.sh && [ -f $root_path/install_brew.sh ]; then
 
@@ -79,25 +82,18 @@ echo "############ Check and install micromamba ############"
 # About mamba: A super fast Python package and environment manager (compared to conda)
 # About micromamba: A tiny version of the mamba. No base environment nor a default version of Python
 # More: https://mamba.readthedocs.io/en/latest/index.html
+
+# Try to activate micromamba first
 export MAMBA_ROOT_PREFIX="~/micromamba" # Optional, use default value
 eval "$(/opt/homebrew/bin/micromamba shell hook -s bash)"
+
 if ! command -v micromamba &>/dev/null; then
     # Install micromamba
     brew install micromamba
     # Activate micromamba in current shell
     eval "$(/opt/homebrew/bin/micromamba shell hook -s bash)"
     verify_installation micromamba
-    # # Init micromamba
-    # micromamba shell init -s bash -p ~/micromamba
-    # if [ -f ~/.profile ]; then
-    #     source ~/.profile
-    # fi
-    # if [ -f ~/.bash_profile ]; then
-    #     source ~/.bash_profile
-    # fi
-    # if [ -f ~/.bashrc ]; then
-    #     source ~/.bashrc
-    # fi
+
     # Set default channels for micromamba
     micromamba config append channels conda-forge
     micromamba config append channels nodefaults
