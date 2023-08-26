@@ -4,7 +4,8 @@ set -u
 
 echo "开始安装 Stable Diffusion web UI ......"
 
-root_path=$(pwd)
+# Set the root path
+root_path=$HOME
 
 # Define a function to handle errors
 function handle_error {
@@ -13,6 +14,7 @@ function handle_error {
     choice=${choice:-y}
     if [[ $choice == [yY] ]]; then
         # Retry the command
+        cd $root_path
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/wy-luke/StableDiffusion-Installer-For-Mac/main/sd-installer.sh)"
     else
         # Exit the script
