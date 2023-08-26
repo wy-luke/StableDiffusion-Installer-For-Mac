@@ -47,7 +47,14 @@ echo "############ Check and install Homebrew ##############"
 eval "$(/opt/homebrew/bin/brew shellenv)"
 if ! command -v brew &>/dev/null; then
     if curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh -o install_brew.sh && [ -f $root_path/install_brew.sh ]; then
+
+        # Grant the permission to install Homebrew
+        sudo dseditgroup -o edit -a $(whoami) -t user admin
+        sudo dseditgroup -o edit -a $(whoami) -t user wheel
+
+        # Grant the permission to execute the installation script
         chmod +x "$root_path/install_brew.sh"
+
         yes | /bin/bash -c "$root_path/install_brew.sh"
         eval "$(/opt/homebrew/bin/brew shellenv)"
         verify_installation brew
