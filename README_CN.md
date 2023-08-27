@@ -45,13 +45,21 @@
 ## 使用
 
 1. 在**应用程序**中，找到**终端** <img src="./images/terminal.png" alt="terminal" width="25"/> 并打开
+
 2. 复制下面的命令到**终端**中，按**回车键**执行命令，然后安装就会自动开始，只需等待安装完成
 
    ```bash
    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/wy-luke/StableDiffusion-Installer-For-Mac/main/sd-installer.sh)"
    ```
 
+   国内用户网络不好时，可以尝试使用以下命令，但是后续安装可能也会由于网络原因失败，建议先解决网络问题。
+
+   ```bash
+   /bin/bash -c "$(curl -fsSL https://raw.fastgit.org/wy-luke/StableDiffusion-Installer-For-Mac/main/sd-installer.sh)"
+   ```
+
 3. ~~如果提示输入，需且**只需**按**回车键**~~
+
 4. 如果出现类似下面的内容，即为安装成功
 
    ![success](images/success.png)
