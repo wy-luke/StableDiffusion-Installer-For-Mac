@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/wy-luke/StableDiffusion-Installer-For-Mac/compare/v1.0.0...v1.0.1) (2023-08-28)
+
+
+### Bug Fixes
+
+* fix root_path not found ([8644a94](https://github.com/wy-luke/StableDiffusion-Installer-For-Mac/commit/8644a94de723eb1b00db31725b7f6ebe1dc70993))
+
 ## 1.0.0 (2023-08-27)
 
 
