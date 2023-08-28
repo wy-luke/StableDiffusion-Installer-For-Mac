@@ -6,7 +6,7 @@ set -u
 installation_path=$HOME #TODO: Make it configurable
 
 tmp_path="$HOME/.sd-installer"
-mkdir -p $root_path
+mkdir -p $tmp_path
 
 function clean_up {
     echo "############ Clean ###################################"
