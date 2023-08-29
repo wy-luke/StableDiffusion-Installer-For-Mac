@@ -8,6 +8,24 @@
 
 Assist you in **quickly and effortlessly** installing the Stable Diffusion web UI on your Mac.
 
+## Usage
+
+1. In the **Applications** folder, locate **Terminal** <img src="./images/terminal.png" alt="terminal" width="25"/> and open it.
+
+2. Copy the following command to the **terminal**, press the **Enter key** to execute the command, and the installation will start automatically. Just wait for the installation to complete.
+
+   ```bash
+   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/wy-luke/StableDiffusion-Installer-For-Mac/main/sd-installer.sh)"
+   ```
+
+3. ~~If prompted to input, simply press the **Enter key** and **only** that.~~
+
+4. If you see similar content below, it indicates a successful installation.
+
+   ![success](images/success.png)
+
+5. Open your web browser and enter `http://127.0.0.1:7860` (the underlined part in the image above) to access the Stable Diffusion web UI.
+
 ## Features
 
 1. Use [Homebrew](https://brew.sh/) to install required dependencies. If you already have it installed, it will be used automatically. If not, it will be installed for you, but without modifying your system environment – your system will remain unchanged.
@@ -43,21 +61,3 @@ Assist you in **quickly and effortlessly** installing the Stable Diffusion web U
    /opt/homebrew/bin/micromamba shell init -s bash -p ~/micromamba
    source ~/.bashrc
    ```
-
-## Steps
-
-1. In the **Applications** folder, locate **Terminal** <img src="./images/terminal.png" alt="terminal" width="25"/> and open it.
-
-2. Copy the following command to the **terminal**, press the **Enter key** to execute the command, and the installation will start automatically. Just wait for the installation to complete.
-
-```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/wy-luke/StableDiffusion-Installer-For-Mac/main/sd-installer.sh)"
-```
-
-3. ~~If prompted to input, simply press the **Enter key** and **only** that.~~
-
-4. If you see similar content below, it indicates a successful installation.
-
-   ![success](images/success.png)
-
-5. Open your web browser and enter `http://127.0.0.1:7860` (the underlined part in the image above) to access the Stable Diffusion web UI.
