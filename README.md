@@ -18,13 +18,17 @@ Assist you in **quickly and effortlessly** installing the Stable Diffusion web U
    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/wy-luke/StableDiffusion-Installer-For-Mac/main/sd-installer.sh)"
    ```
 
-3. ~~If prompted to input, simply press the **Enter key** and **only** that.~~
+3. At the beginning, you will be prompted to enter password, just type your login password.
+
+   > Note: Your password will be invisible when you type, just type it, and press Enter after completion.
 
 4. If you see similar content below, it indicates a successful installation.
 
    ![success](images/success.png)
 
 5. Open your web browser and enter `http://127.0.0.1:7860` (the underlined part in the image above) to access the Stable Diffusion web UI.
+
+6. If the installation fails, you will be prompted whether to retry. Type `y` or just simply **press the Enter key** to try again. Type `n` to exit.
 
 ## Features
 

@@ -24,13 +24,17 @@
    /bin/bash -c "$(curl -fsSL https://raw.fastgit.org/wy-luke/StableDiffusion-Installer-For-Mac/main/sd-installer.sh)"
    ```
 
-3. ~~如果提示输入，需且**只需**按**回车键**~~
+3. 在安装开始时，会提示您输入密码，只需输入您的登录密码即可。
+
+   > 注意：您的密码在输入时是不可见的，只需正常输入，完成后按 Enter 键。
 
 4. 如果出现类似下面的内容，即为安装成功
 
    ![success](images/success.png)
 
 5. 打开浏览器，输入 `http://127.0.0.1:7860`(即上图划线部分)，即可打开 Stable Diffusion web UI
+
+6. 如果安装失败，会提示您是否重试。输入 `y` 或**按 Enter 键**重试，输入 `n` 退出安装。
 
 ## 优势
 
