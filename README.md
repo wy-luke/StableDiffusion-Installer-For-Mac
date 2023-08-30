@@ -12,6 +12,8 @@ Assist you in **quickly and effortlessly** installing the Stable Diffusion web U
 
 1. In the **Applications** folder, locate **Terminal** <img src="./images/terminal.png" alt="terminal" width="25"/> and open it.
 
+   > Note: It's in the `/Applications/Utilities` folder. If you still can't find it, search it by name!
+
 2. Copy the following command to the **terminal**, press the **Enter key** to execute the command, and the installation will start automatically. Just wait for the installation to complete.
 
    ```bash
