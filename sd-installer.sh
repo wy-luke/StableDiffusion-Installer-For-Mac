@@ -158,7 +158,8 @@ else
 fi
 
 echo_green "Install the packages required"
-brew install cmake protobuf rust wget
+brew install protobuf rust wget
+brew install --cask cmake
 
 echo
 
