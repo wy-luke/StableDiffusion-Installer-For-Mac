@@ -22,7 +22,7 @@
    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/wy-luke/StableDiffusion-Installer-For-Mac/main/sd-installer.sh)"
    ```
 
-   国内用户存在网络问题时，可以尝试使用以下命令。同时，在提示 `是否存在网络连通问题？ [y/n]` 时，输入 `y`，然后按**回车**。
+   国内用户存在网络问题时，可以尝试使用以下命令。同时，在提示 `网络是否顺畅? 默认y [y/n]` 时，输入 `n`，然后按**回车**。
 
    ```bash
    /bin/bash -c "$(curl -fsSL https://raw.fastgit.org/wy-luke/StableDiffusion-Installer-For-Mac/main/sd-installer.sh)"
