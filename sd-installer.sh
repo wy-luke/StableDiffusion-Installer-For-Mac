@@ -12,55 +12,6 @@ net_connected=true
 brew_installer_path="$tmp_path/brew_installer.sh"
 test_mode=0 # Only for test. 0 for no test, 1 for yes-test, 2 for no-test
 
-# Parse command line arguments
-while [[ $# -gt 0 ]]; do
-    case "$1" in
-    -0 | -1 | -2)
-        test_mode=${1:0}
-        shift
-        ;;
-    # -h | --help)
-    #     show_help
-    #     exit 0
-    #     ;;
-    *)
-        echo_red "未知选项: $1"
-        # show_help
-        exit 1
-        ;;
-    esac
-done
-
-if [$test_mode != 0]; then
-    if [$test_mode == 1]; then
-        net_connected=true
-        echo_green "Yes-test"
-    else
-        net_connected=false
-        echo_green "No-test"
-    fi
-else
-    echo_green "For non-Chinese users, you could just ignore this and press the Enter key"
-    read -rp "是否存在网络连通问题? 默认n [y/n] " net_choice
-    net_choice=${net_choice:-n}
-    if [[ $net_choice == [yY] ]]; then
-        net_connected=false
-        echo_green "将会设置国内镜像源"
-    else
-        echo_green "网络通畅, 正常安装"
-    fi
-fi
-
-brew_installer_url="https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh"
-sd_installer_url="https://raw.githubusercontent.com/wy-luke/StableDiffusion-Installer-For-Mac/main/sd-installer.sh"
-sd_webui_url="https://github.com/AUTOMATIC1111/stable-diffusion-webui.git"
-
-if ! $net_connected; then
-    brew_installer_url="https://raw.fastgit.org/Homebrew/install/HEAD/install.sh"
-    sd_installer_url="https://raw.fastgit.org/wy-luke/StableDiffusion-Installer-For-Mac/main/sd-installer.sh"
-    sd_webui_url="https://hub.fastgit.xyz/AUTOMATIC1111/stable-diffusion-webui.git"
-fi
-
 function clean_up {
     echo "############ Clean ###################################"
     rm -rf $tmp_path
@@ -68,7 +19,7 @@ function clean_up {
 
 # Define a function to handle errors
 function handle_error {
-    if [$test_mode != 0]; then
+    if ["$test_mode" != 0]; then
         echo_red "测试失败, 不重试"
         exit 1
     fi
@@ -105,6 +56,55 @@ function echo_green {
 function echo_red {
     echo -e "\033[31m$1\033[0m"
 }
+
+# Parse command line arguments
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+    -1 | -2)
+        test_mode=${1:1}
+        shift
+        ;;
+    # -h | --help)
+    #     show_help
+    #     exit 0
+    #     ;;
+    *)
+        echo_red "未知选项: $1"
+        # show_help
+        exit 1
+        ;;
+    esac
+done
+
+if ["$test_mode" != 0]; then
+    if ["$test_mode" == 1]; then
+        net_connected=true
+        echo_green "Yes-test"
+    else
+        net_connected=false
+        echo_green "No-test"
+    fi
+else
+    echo_green "For non-Chinese users, you could just ignore this and press the Enter key"
+    read -rp "网络是否顺畅? 默认y [y/n] " net_choice
+    net_choice=${net_choice:-y}
+    if [[ $net_choice == [nN] ]]; then
+        net_connected=false
+        echo_green "将会设置国内镜像源"
+    else
+        echo_green "网络通畅, 正常安装"
+    fi
+fi
+
+brew_installer_url="https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh"
+sd_installer_url="https://raw.githubusercontent.com/wy-luke/StableDiffusion-Installer-For-Mac/main/sd-installer.sh"
+sd_webui_url="https://github.com/AUTOMATIC1111/stable-diffusion-webui.git"
+
+if ! $net_connected; then
+    brew_installer_url="https://raw.fastgit.org/Homebrew/install/HEAD/install.sh"
+    sd_installer_url="https://raw.fastgit.org/wy-luke/StableDiffusion-Installer-For-Mac/main/sd-installer.sh"
+    sd_webui_url="https://hub.fastgit.xyz/AUTOMATIC1111/stable-diffusion-webui.git"
+fi
 
 echo "############ 开始安装 Stable Diffusion web UI #########" && echo
 
