@@ -10,47 +10,35 @@ net_connected=true
 
 # Other variables
 brew_installer_path="$tmp_path/brew_installer.sh"
-test_mode=false # Only for test
-yes_test=true
+test_mode=0 # Only for test. 0 for no test, 1 for yes-test, 2 for no-test
 
 # Parse command line arguments
+test_mode=$1
 while [[ $# -gt 0 ]]; do
-    case $1 in
-    test)
-        test_mode=true
+    case "$1" in
+    -0 | -1 | -2)
+        test_mode=${1:0}
         shift
         ;;
+    # -h | --help)
+    #     show_help
+    #     exit 0
+    #     ;;
     *)
-        echo_red "Unknown argument: $1"
+        echo_red "未知选项: $1"
+        # show_help
         exit 1
         ;;
     esac
-
-    if [[ -n $2 ]]; then
-        case $2 in
-        y)
-            yes_test=true
-            shift
-            ;;
-        n)
-            yes_test=false
-            shift
-            ;;
-        *)
-            echo_red "Unknown argument: $2"
-            exit 1
-            ;;
-        esac
-    fi
 done
 
-if $test_mode; then
-    if $yes_test; then
+if [$test_mode != 0]; then
+    if [$test_mode == 1]; then
         net_connected=true
-        echo_green "Yes test"
+        echo_green "Yes-test"
     else
         net_connected=false
-        echo_green "No test"
+        echo_green "No-test"
     fi
 else
     echo_green "For non-Chinese users, you could just ignore this and press the Enter key"
@@ -81,8 +69,8 @@ function clean_up {
 
 # Define a function to handle errors
 function handle_error {
-    if $test_mode; then
-        echo_red "失败, 不重试"
+    if [$test_mode != 0]; then
+        echo_red "测试失败, 不重试"
         exit 1
     fi
 
