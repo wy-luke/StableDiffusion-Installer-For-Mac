@@ -1,3 +1,5 @@
+name: Auto-Release
+
 on:
   push:
     branches:
