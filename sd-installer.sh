@@ -11,6 +11,7 @@ net_connected=true
 # Other variables
 brew_installer_path="$tmp_path/brew_installer.sh"
 test_mode=false # Only for test
+yes_test=true
 
 # Parse command line arguments
 while [[ $# -gt 0 ]]; do
@@ -24,16 +25,41 @@ while [[ $# -gt 0 ]]; do
         exit 1
         ;;
     esac
+
+    case $2 in
+    y)
+        yes_test=true
+        shift
+        ;;
+    n)
+        yes_test=false
+        shift
+        ;;
+    *)
+        echo_red "Unknown argument: $2"
+        exit 1
+        ;;
+    esac
 done
 
-echo_green "For non-Chinese users, you could just ignore this and press the Enter key"
-read -rp "是否存在网络连通问题? 默认n [y/n] " net_choice
-net_choice=${net_choice:-n}
-if [[ $net_choice == [yY] ]]; then
-    net_connected=false
-    echo_green "将会设置国内镜像源"
+if $test_mode; then
+    if $yes_test; then
+        net_connected=true
+        echo_green "Yes test"
+    else
+        net_connected=false
+        echo_green "No test"
+    fi
 else
-    echo_green "网络通畅, 正常安装"
+    echo_green "For non-Chinese users, you could just ignore this and press the Enter key"
+    read -rp "是否存在网络连通问题? 默认n [y/n] " net_choice
+    net_choice=${net_choice:-n}
+    if [[ $net_choice == [yY] ]]; then
+        net_connected=false
+        echo_green "将会设置国内镜像源"
+    else
+        echo_green "网络通畅, 正常安装"
+    fi
 fi
 
 brew_installer_url="https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh"
