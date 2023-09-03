@@ -2,13 +2,29 @@
 
 set -u
 
-# Set the installation path
-installation_path=$HOME #TODO: Make it configurable
+# Configurable variables #TODO: Make them configurable
+installation_path=$HOME
 tmp_path="$HOME/.sd-installer"
 mamba_root_path="~/micromamba"
 net_connected=true
 
+# Other variables
 brew_installer_path="$tmp_path/brew_installer.sh"
+test_mode=false # Only for test
+
+# Parse command line arguments
+while [[ $# -gt 0 ]]; do
+    case $1 in
+    test)
+        test_mode=true
+        shift
+        ;;
+    *)
+        echo_red "Unknown argument: $1"
+        exit 1
+        ;;
+    esac
+done
 
 echo_green "For non-Chinese users, you could just ignore this and press the Enter key"
 read -rp "是否存在网络连通问题? 默认n [y/n] " net_choice
@@ -37,6 +53,11 @@ function clean_up {
 
 # Define a function to handle errors
 function handle_error {
+    if $test_mode; then
+        echo_red "失败, 不重试"
+        exit 1
+    fi
+
     echo_red "安装失败, 是否重试? [y/n] "
     read -rp "Installation failed, do you want to retry? [y/n] " error_choice
     error_choice=${error_choice:-y}
