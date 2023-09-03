@@ -14,11 +14,8 @@ jobs:
         with:
           sparse-checkout: sd-installer.sh
           sparse-checkout-cone-mode: false
-      - run: pwd
-      - run: ls
-      - run: ls -la ${{ github.workspace }}
       - name: Yes
-        run: yes | bash ${{ github.workspace }}/StableDiffusion-Installer-For-Mac/sd-installer.sh
+        run: yes | bash sd-installer.sh
 
   No-Test:
     runs-on: macos-latest
@@ -29,4 +26,4 @@ jobs:
           sparse-checkout: sd-installer.sh
           sparse-checkout-cone-mode: false
       - name: No
-        run: yes n | bash ${{ github.workspace }}/StableDiffusion-Installer-For-Mac/sd-installer.sh
+        run: yes n | bash sd-installer.sh
