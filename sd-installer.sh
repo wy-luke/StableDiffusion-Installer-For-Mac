@@ -4,9 +4,28 @@ set -u
 
 # Set the installation path
 installation_path=$HOME #TODO: Make it configurable
-
 tmp_path="$HOME/.sd-installer"
-mkdir -p $tmp_path
+mamba_root_path="~/micromamba"
+net_connected=true
+
+brew_installer_path="$tmp_path/brew_installer.sh"
+
+echo_green "For non-Chinese users, you could just ignore this and press the Enter key"
+read -rp "是否存在网络连通问题？ [y/n] " choice
+choice=${choice:-n}
+if [[ $choice == [yY] ]]; then
+    net_connected=false
+fi
+
+brew_installer_url="https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh"
+sd_installer_url="https://raw.githubusercontent.com/wy-luke/StableDiffusion-Installer-For-Mac/main/sd-installer.sh"
+sd_webui_url="https://github.com/AUTOMATIC1111/stable-diffusion-webui.git"
+
+if ! $net_connected; then
+    brew_installer_url="https://raw.fastgit.org/Homebrew/install/HEAD/install.sh"
+    sd_installer_url="https://raw.fastgit.org/wy-luke/StableDiffusion-Installer-For-Mac/main/sd-installer.sh"
+    sd_webui_url="https://hub.fastgit.xyz/AUTOMATIC1111/stable-diffusion-webui.git"
+fi
 
 function clean_up {
     echo "############ Clean ###################################"
@@ -20,7 +39,7 @@ function handle_error {
     choice=${choice:-y}
     if [[ $choice == [yY] ]]; then
         # Retry the command
-        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/wy-luke/StableDiffusion-Installer-For-Mac/main/sd-installer.sh)"
+        /bin/bash -c "$(curl -fsSL $sd_installer_url)"
     else
         clean_up
         # Exit the script
@@ -30,6 +49,7 @@ function handle_error {
 # Set the error handler
 trap 'handle_error' ERR
 
+# Last command succeeded and the command exists
 function verify_installation {
     if [ $? -eq 0 ] && command -v $1 &>/dev/null; then
         echo_green "$1 has been installed successfully"
@@ -49,6 +69,10 @@ function echo_red {
 
 echo "############ 开始安装 Stable Diffusion web UI #########" && echo
 
+if [ ! -d $tmp_path ]; then
+    mkdir -p $tmp_path
+fi
+
 echo "############ Check and install Homebrew ##############"
 # Homebrew: The missing package manager for macOS
 # More: https://brew.sh/
@@ -57,18 +81,33 @@ echo "############ Check and install Homebrew ##############"
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
 if ! command -v brew &>/dev/null; then
-    if curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh -o "$tmp_path/install_brew.sh" && [ -f "$tmp_path/install_brew.sh" ]; then
+    if curl -fsSL $brew_installer_url -o $brew_installer_path && [ -f $brew_installer_path ]; then
 
         # Grant the permission to install Homebrew
         sudo dseditgroup -o edit -a $(whoami) -t user admin
         sudo dseditgroup -o edit -a $(whoami) -t user wheel
 
         # Grant the permission to execute the installation script
-        chmod +x "$tmp_path/install_brew.sh"
+        chmod +x $brew_installer_path
 
-        yes | /bin/bash -c "$tmp_path/install_brew.sh"
+        if ! net_connected; then
+            export HOMEBREW_API_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/api"
+            export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles"
+            export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"
+        fi
+
+        yes | /bin/bash -c $brew_installer_path
         eval "$(/opt/homebrew/bin/brew shellenv)"
         verify_installation brew
+
+        if ! net_connected; then
+            export HOMEBREW_API_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/api"
+            export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles"
+            export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"
+            export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git"
+            export HOMEBREW_PIP_INDEX_URL="https://pypi.tuna.tsinghua.edu.cn/simple"
+            brew update
+        fi
     else
         echo_red "Homebrew 安装文件下载失败，请检查网络连接"
         echo_red "Failed to download Homebrew installation script, please check your network connection"
@@ -90,7 +129,7 @@ echo "############ Check and install micromamba ############"
 # More: https://mamba.readthedocs.io/en/latest/index.html
 
 # Try to activate micromamba first
-export MAMBA_ROOT_PREFIX="~/micromamba" # Optional, use default value
+export MAMBA_ROOT_PREFIX=$mamba_root_path
 eval "$(/opt/homebrew/bin/micromamba shell hook -s bash)"
 
 if ! command -v micromamba &>/dev/null; then
@@ -104,6 +143,13 @@ if ! command -v micromamba &>/dev/null; then
     micromamba config append channels conda-forge
     micromamba config append channels nodefaults
     micromamba config set channel_priority strict
+
+    if ! net_connected; then
+        conda config --set show_channel_urls yes
+        micromamba config prepend channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/
+        micromamba config prepend channels http://mirrors.ustc.edu.cn/anaconda/cloud/conda-forge/
+        conda clean -i
+    fi
 
     echo_green "micromamba has been configed"
 else
@@ -126,7 +172,7 @@ echo "############ Download code ###########################"
 # Check if stable-diffusion-webui's folder exits
 if [ ! -d "$installation_path/stable-diffusion-webui" ]; then
     cd $installation_path
-    git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git
+    git clone $sd_webui_url
     echo_green "Code has been installed successfully"
 else
     echo_green "Code has already been downloaded"
@@ -151,7 +197,13 @@ if [ ! -d "stable-diffusion-webui" ]; then
     python -m venv venv
 fi
 source venv/bin/activate
+
+if ! net_connected; then
+    pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+fi
+
 # pip install --upgrade pip
+
 # Delete pip cache to avoid some errors
 pip cache purge
 
