@@ -26,20 +26,22 @@ while [[ $# -gt 0 ]]; do
         ;;
     esac
 
-    case $2 in
-    y)
-        yes_test=true
-        shift
-        ;;
-    n)
-        yes_test=false
-        shift
-        ;;
-    *)
-        echo_red "Unknown argument: $2"
-        exit 1
-        ;;
-    esac
+    if [[ -n $2 ]]; then
+        case $2 in
+        y)
+            yes_test=true
+            shift
+            ;;
+        n)
+            yes_test=false
+            shift
+            ;;
+        *)
+            echo_red "Unknown argument: $2"
+            exit 1
+            ;;
+        esac
+    fi
 done
 
 if $test_mode; then
