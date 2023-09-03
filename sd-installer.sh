@@ -17,6 +17,14 @@ function clean_up {
     rm -rf $tmp_path
 }
 
+function echo_green {
+    echo -e "\033[32m$1\033[0m"
+}
+
+function echo_red {
+    echo -e "\033[31m$1\033[0m"
+}
+
 # Define a function to handle errors
 function handle_error {
     if [ "$test_mode" != 0 ]; then
@@ -47,14 +55,6 @@ function verify_installation {
         echo_red "Failed to install $1"
         exit 1
     fi
-}
-
-function echo_green {
-    echo -e "\033[32m$1\033[0m"
-}
-
-function echo_red {
-    echo -e "\033[31m$1\033[0m"
 }
 
 # Parse command line arguments
