@@ -129,7 +129,7 @@ if ! command -v brew &>/dev/null; then
         # Grant the permission to execute the installation script
         chmod +x $brew_installer_path
 
-        if ! net_connected; then
+        if ! $net_connected; then
             export HOMEBREW_API_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/api"
             export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles"
             export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"
@@ -139,7 +139,7 @@ if ! command -v brew &>/dev/null; then
         eval "$(/opt/homebrew/bin/brew shellenv)"
         verify_installation brew
 
-        if ! net_connected; then
+        if ! $net_connected; then
             export HOMEBREW_API_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/api"
             export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles"
             export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"
@@ -184,7 +184,7 @@ if ! command -v micromamba &>/dev/null; then
     micromamba config append channels nodefaults
     micromamba config set channel_priority strict
 
-    if ! net_connected; then
+    if ! $net_connected; then
         conda config --set show_channel_urls yes
         micromamba config prepend channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/
         micromamba config prepend channels http://mirrors.ustc.edu.cn/anaconda/cloud/conda-forge/
@@ -238,7 +238,7 @@ if [ ! -d "stable-diffusion-webui" ]; then
 fi
 source venv/bin/activate
 
-if ! net_connected; then
+if ! $net_connected; then
     pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 fi
 
