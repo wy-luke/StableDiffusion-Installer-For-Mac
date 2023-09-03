@@ -11,9 +11,9 @@ net_connected=true
 brew_installer_path="$tmp_path/brew_installer.sh"
 
 echo_green "For non-Chinese users, you could just ignore this and press the Enter key"
-read -rp "是否存在网络连通问题? 默认n [y/n] " choice
-choice=${choice:-n}
-if [[ $choice == [yY] ]]; then
+read -rp "是否存在网络连通问题? 默认n [y/n] " net_choice
+net_choice=${net_choice:-n}
+if [[ $net_choice == [yY] ]]; then
     net_connected=false
     echo_green "将会设置国内镜像源"
 else
@@ -38,9 +38,9 @@ function clean_up {
 # Define a function to handle errors
 function handle_error {
     echo_red "安装失败, 是否重试? [y/n] "
-    read -rp "Installation failed, do you want to retry? [y/n] " choice
-    choice=${choice:-y}
-    if [[ $choice == [yY] ]]; then
+    read -rp "Installation failed, do you want to retry? [y/n] " error_choice
+    error_choice=${error_choice:-y}
+    if [[ $error_choice == [yY] ]]; then
         # Retry the command
         /bin/bash -c "$(curl -fsSL $sd_installer_url)"
     else
