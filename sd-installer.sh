@@ -11,10 +11,13 @@ net_connected=true
 brew_installer_path="$tmp_path/brew_installer.sh"
 
 echo_green "For non-Chinese users, you could just ignore this and press the Enter key"
-read -rp "是否存在网络连通问题？ [y/n] " choice
+read -rp "是否存在网络连通问题? 默认n [y/n] " choice
 choice=${choice:-n}
 if [[ $choice == [yY] ]]; then
     net_connected=false
+    echo_green "将会设置国内镜像源"
+else
+    echo_green "网络通畅, 正常安装"
 fi
 
 brew_installer_url="https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh"
@@ -34,7 +37,7 @@ function clean_up {
 
 # Define a function to handle errors
 function handle_error {
-    echo_red "安装失败，是否重试？ [y/n] "
+    echo_red "安装失败, 是否重试? [y/n] "
     read -rp "Installation failed, do you want to retry? [y/n] " choice
     choice=${choice:-y}
     if [[ $choice == [yY] ]]; then
@@ -109,7 +112,7 @@ if ! command -v brew &>/dev/null; then
             brew update
         fi
     else
-        echo_red "Homebrew 安装文件下载失败，请检查网络连接"
+        echo_red "Homebrew 安装文件下载失败, 请检查网络连接"
         echo_red "Failed to download Homebrew installation script, please check your network connection"
         exit 1
 
