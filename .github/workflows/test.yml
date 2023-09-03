@@ -15,7 +15,7 @@ jobs:
           sparse-checkout: sd-installer.sh
           sparse-checkout-cone-mode: false
       - name: Yes
-        run: bash sd-installer.sh test y
+        run: bash sd-installer.sh 1
 
   No-Test:
     runs-on: macos-latest
@@ -26,4 +26,4 @@ jobs:
           sparse-checkout: sd-installer.sh
           sparse-checkout-cone-mode: false
       - name: No
-        run: bash sd-installer.sh test n
+        run: bash sd-installer.sh 2
