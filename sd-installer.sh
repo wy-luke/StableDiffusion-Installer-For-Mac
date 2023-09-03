@@ -13,7 +13,6 @@ brew_installer_path="$tmp_path/brew_installer.sh"
 test_mode=0 # Only for test. 0 for no test, 1 for yes-test, 2 for no-test
 
 # Parse command line arguments
-test_mode=$1
 while [[ $# -gt 0 ]]; do
     case "$1" in
     -0 | -1 | -2)
