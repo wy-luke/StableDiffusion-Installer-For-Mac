@@ -8,6 +8,8 @@
 
 Assist you in **quickly and effortlessly** installing the Stable Diffusion web UI on your Mac.
 
+Theoretically, it should work on both Apple Silicon and Intel CPU with any version of macOS.
+
 ## Usage
 
 1. In the **Applications** folder, locate **Terminal** <img src="./images/terminal.png" alt="terminal" width="25"/> and open it.

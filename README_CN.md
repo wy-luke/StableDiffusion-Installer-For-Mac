@@ -8,6 +8,8 @@
 
 帮助你**快速、轻松**地将 Stable Diffusion web UI 安装在你的 mac 上。
 
+理论上讲，在所有的 Mac 上均可适用。
+
 ## 使用
 
 1. 在**应用程序**中，找到**终端** <img src="./images/terminal.png" alt="terminal" width="25"/> 并打开
