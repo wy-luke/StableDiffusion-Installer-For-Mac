@@ -19,7 +19,7 @@ function clean_up {
 
 # Define a function to handle errors
 function handle_error {
-    if ["$test_mode" != 0]; then
+    if [ "$test_mode" != 0 ]; then
         echo_red "测试失败, 不重试"
         exit 1
     fi
@@ -76,8 +76,8 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-if ["$test_mode" != 0]; then
-    if ["$test_mode" == 1]; then
+if [ "$test_mode" != 0 ]; then
+    if [ "$test_mode" == 1 ]; then
         net_connected=true
         echo_green "Yes-test"
     else
