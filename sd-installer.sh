@@ -103,7 +103,7 @@ sd_webui_url="https://github.com/AUTOMATIC1111/stable-diffusion-webui.git"
 if ! $net_connected; then
     brew_installer_url="https://raw.fastgit.org/Homebrew/install/HEAD/install.sh"
     sd_installer_url="https://raw.fastgit.org/wy-luke/StableDiffusion-Installer-For-Mac/main/sd-installer.sh"
-    sd_webui_url="https://hub.fastgit.xyz/AUTOMATIC1111/stable-diffusion-webui.git"
+    sd_webui_url="https://gitclone.com/github.com/AUTOMATIC1111/stable-diffusion-webui.git"
 fi
 
 echo "############ 开始安装 Stable Diffusion web UI #########" && echo
