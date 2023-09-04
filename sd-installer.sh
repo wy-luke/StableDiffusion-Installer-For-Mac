@@ -187,7 +187,7 @@ if ! command -v micromamba &>/dev/null; then
     if ! $net_connected; then
         conda config --set show_channel_urls yes
         micromamba config prepend channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/
-        micromamba config prepend channels http://mirrors.ustc.edu.cn/anaconda/cloud/conda-forge/
+        # micromamba config prepend channels http://mirrors.ustc.edu.cn/anaconda/cloud/conda-forge/
         conda clean -i
     fi
 
