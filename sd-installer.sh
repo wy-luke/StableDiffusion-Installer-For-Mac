@@ -158,7 +158,7 @@ else
 fi
 
 echo_green "Install the packages required"
-brew install cmake protobuf rust wget
+brew install cmake protobuf rust git wget
 # brew install --cask cmake
 
 echo
@@ -235,17 +235,17 @@ echo_green "Activate sd env"
 eval "$(micromamba shell hook --shell bash)"
 micromamba activate sd
 
-if [ ! -d "stable-diffusion-webui" ]; then
-    # Activate pyvenv to update pip to avoid some errors
-    python -m venv venv
-fi
-source venv/bin/activate
+# if [ ! -d "stable-diffusion-webui" ]; then
+#     # Activate pyvenv to update pip to avoid some errors
+#     python -m venv venv
+# fi
+# source venv/bin/activate
 
 if ! $net_connected; then
     pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 fi
 
-pip install --upgrade pip setuptools wheel
+# pip install --upgrade pip setuptools wheel
 # pip install basicsr==1.4.1
 
 # Delete pip cache to avoid some errors
