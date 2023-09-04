@@ -1,4 +1,4 @@
-name: Auto-Release
+name: Release-Please
 
 on:
   push:
@@ -8,8 +8,6 @@ on:
 permissions:
   contents: write
   pull-requests: write
-
-name: release-please
 
 jobs:
   release-please:
