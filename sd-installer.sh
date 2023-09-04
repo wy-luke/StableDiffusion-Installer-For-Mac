@@ -229,9 +229,12 @@ else
     yes | micromamba create -n sd python=3.10
     echo_green "The sd env has been created successfully"
 fi
+
 # Activate sd env
 echo_green "Activate sd env"
+eval "$(micromamba shell hook --shell bash)"
 micromamba activate sd
+
 if [ ! -d "stable-diffusion-webui" ]; then
     # Activate pyvenv to update pip to avoid some errors
     python -m venv venv
