@@ -245,9 +245,8 @@ if ! $net_connected; then
     pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 fi
 
-pip install --upgrade pip
-pip install setuptools --upgrade
-pip install basicsr
+pip install --upgrade pip setuptools wheel
+pip install basicsr=1.4.1
 
 # Delete pip cache to avoid some errors
 pip cache purge
