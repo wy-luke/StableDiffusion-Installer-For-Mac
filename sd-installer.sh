@@ -246,6 +246,7 @@ pip cache purge
 
 if ! $net_connected; then
     pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+    pip install torch
 fi
 
 pip install --upgrade pip setuptools
