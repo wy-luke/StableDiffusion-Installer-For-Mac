@@ -103,7 +103,7 @@ sd_webui_url="https://github.com/AUTOMATIC1111/stable-diffusion-webui.git"
 if ! $net_connected; then
     brew_installer_url="https://raw.fastgit.org/Homebrew/install/HEAD/install.sh"
     sd_installer_url="https://raw.fastgit.org/wy-luke/StableDiffusion-Installer-For-Mac/main/sd-installer.sh"
-    sd_webui_url="https://gitclone.com/github.com/AUTOMATIC1111/stable-diffusion-webui.git"
+    sd_webui_url="https://ghproxy.com/github.com/AUTOMATIC1111/stable-diffusion-webui.git"
 fi
 
 echo "############ 开始安装 Stable Diffusion web UI #########" && echo
@@ -245,13 +245,21 @@ if ! $net_connected; then
     pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 fi
 
-# pip install --upgrade pip
+pip install --upgrade pip
+pip install setuptools --upgrade
+pip install basicsr
 
 # Delete pip cache to avoid some errors
 pip cache purge
 
 # Install required packages via micromamba
 # micromamba install --yes --file requirements_versions.txt
+
+# Fix cannot instll https://github.com/AUTOMATIC1111/stable-diffusion-webui/issues/12210
+if ! $net_connected; then
+    echo >>webui-macos-env.sh
+    echo "export TORCH_COMMAND=\"pip install wheel==0.41.1 torch==2.0.1 torchvision==0.15.2 cython && pip install git+https://ghproxy.com/https://github.com/TencentARC/GFPGAN.git@8d2447a2d918f8eba5a4a01463fd48e45126a379 --prefer-binary\"" >>webui-macos-env.sh
+fi
 
 # Install Stable Diffusion
 echo "############ 开始安装 Stable Diffusion ################"
