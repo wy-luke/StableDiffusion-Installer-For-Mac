@@ -246,7 +246,7 @@ if ! $net_connected; then
 fi
 
 pip install --upgrade pip setuptools wheel
-pip install basicsr=1.4.1
+pip install basicsr==1.4.1
 
 # Delete pip cache to avoid some errors
 pip cache purge
