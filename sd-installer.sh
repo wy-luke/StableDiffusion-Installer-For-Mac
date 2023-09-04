@@ -266,12 +266,12 @@ fi
 echo "############ 开始安装 Stable Diffusion ################"
 echo "############ Start to install Stable Diffusion ######"
 
-if $test_mode; then
+if "$test_mode" != 0; then
     if ./webui.sh | grep -q 'Launching Web UI with arguments: '; then
-        clean_up
-        echo "############ Install Stable Diffusion successfully ###"
         exit
     fi
 else
     ./webui.sh
+    clean_up
+    echo "############ Install Stable Diffusion successfully ###"
 fi
