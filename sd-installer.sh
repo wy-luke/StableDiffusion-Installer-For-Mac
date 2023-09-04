@@ -235,21 +235,21 @@ echo_green "Activate sd env"
 eval "$(micromamba shell hook --shell bash)"
 micromamba activate sd
 
-# if [ ! -d "stable-diffusion-webui" ]; then
-#     # Activate pyvenv to update pip to avoid some errors
-#     python -m venv venv
-# fi
-# source venv/bin/activate
+if [ ! -d "venv" ]; then
+    # Activate pyvenv to update pip to avoid some errors
+    python -m venv venv
+fi
+source venv/bin/activate
+
+# Delete pip cache to avoid some errors
+pip cache purge
 
 if ! $net_connected; then
     pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 fi
 
-# pip install --upgrade pip setuptools wheel
-# pip install basicsr==1.4.1
-
-# Delete pip cache to avoid some errors
-pip cache purge
+pip install --upgrade pip setuptools
+pip install basicsr==1.4.2
 
 # Install required packages via micromamba
 # micromamba install --yes --file requirements_versions.txt
