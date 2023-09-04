@@ -255,7 +255,7 @@ pip cache purge
 # Install required packages via micromamba
 # micromamba install --yes --file requirements_versions.txt
 
-# Fix cannot instll https://github.com/AUTOMATIC1111/stable-diffusion-webui/issues/12210
+# Fix issue https://github.com/AUTOMATIC1111/stable-diffusion-webui/issues/12210
 if ! $net_connected; then
     echo >>webui-macos-env.sh
     echo "export TORCH_COMMAND=\"pip install wheel==0.41.1 torch==2.0.1 torchvision==0.15.2 cython && pip install git+https://ghproxy.com/https://github.com/TencentARC/GFPGAN.git@8d2447a2d918f8eba5a4a01463fd48e45126a379 --prefer-binary\"" >>webui-macos-env.sh
