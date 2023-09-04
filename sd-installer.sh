@@ -90,7 +90,7 @@ else
     net_choice=${net_choice:-y}
     if [[ $net_choice == [nN] ]]; then
         net_connected=false
-        echo_green "将会设置国内镜像源"
+        echo_green "将会设置国内镜像源安装, 链接可能会不稳定 / 失效"
     else
         echo_green "网络通畅, 正常安装"
     fi
