@@ -212,7 +212,7 @@ echo "############ Download code ###########################"
 # Check if stable-diffusion-webui's folder exits
 if [ ! -d "$installation_path/stable-diffusion-webui" ]; then
     cd $installation_path
-    git clone $sd_webui_url
+    git clone --depth=1 $sd_webui_url
     echo_green "Code has been installed successfully"
 else
     echo_green "Code has already been downloaded"
