@@ -245,6 +245,8 @@ echo_green "Activate sd env"
 eval "$($mamba_path shell hook --shell bash)"
 micromamba activate sd
 
+# micromamba install basicsr=1.4.2 xformers=0.0.20
+
 if [ ! -d "venv" ]; then
     # Activate pyvenv to update pip to avoid some errors
     python -m venv venv
@@ -259,11 +261,11 @@ if ! $net_connected; then
     pip config set global.index-url https://mirrors.aliyun.com/pypi/simple
     pip config set global.extra-index-url https://pypi.tuna.tsinghua.edu.cn/simple
 
-    pip install torch
+    # pip install torch
 fi
 
 pip install --upgrade pip setuptools
-pip install basicsr==1.4.2 xformers==0.0.20
+pip install basicsr==1.4.2 xformers==0.0.20 torch==2.0.0
 
 # Install required packages via micromamba
 # micromamba install --yes --file requirements_versions.txt
