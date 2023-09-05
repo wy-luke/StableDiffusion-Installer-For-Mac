@@ -100,7 +100,7 @@ else
     net_choice=${net_choice:-y}
     if [[ $net_choice == [nN] ]]; then
         net_connected=false
-        echo_green "将会设置国内镜像源安装, 链接可能会不稳定 / 失效"
+        echo_green "将设置国内镜像源安装, 包括 homebrew、conda-forge、pip、github 等, 但链接可能会不稳定/失效, 若失败可以重试"
     else
         echo_green "网络通畅, 正常安装"
     fi
@@ -155,8 +155,8 @@ if ! command -v brew &>/dev/null; then
             export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"
             export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git"
             export HOMEBREW_PIP_INDEX_URL="https://pypi.tuna.tsinghua.edu.cn/simple"
-            brew update
         fi
+        brew update
     else
         echo_red "Homebrew 安装文件下载失败, 请检查网络连接"
         echo_red "Failed to download Homebrew installation script, please check your network connection"
@@ -180,28 +180,29 @@ echo "############ Check and install micromamba ############"
 
 # Try to activate micromamba first
 export MAMBA_ROOT_PREFIX=$mamba_root_path
-eval "$($mamba_path shell hook -s bash)"
+eval "$($mamba_path shell hook -s posix)"
 
 if ! command -v micromamba &>/dev/null; then
     # Install micromamba
     brew install micromamba
     # Activate micromamba in current shell
-    eval "$($mamba_path shell hook -s bash)"
+    eval "$($mamba_path shell hook -s posix)"
     verify_installation micromamba
 else
     echo_green "micromamba has already been installed"
 fi
 
 # Set default channels for micromamba
-micromamba config append channels conda-forge
-micromamba config append channels nodefaults
-micromamba config set channel_priority strict
-
 if ! $net_connected; then
     micromamba config prepend channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/
     # micromamba config prepend channels http://mirrors.ustc.edu.cn/anaconda/cloud/conda-forge/
-    micromamba clean -i
+else
+    micromamba config prepend channels nodefaults
+    micromamba config prepend channels conda-forge
 fi
+micromamba config set channel_priority strict
+micromamba clean -i
+
 echo_green "micromamba has been configed"
 
 echo
@@ -228,6 +229,13 @@ else
 fi
 # Enter the SD's folder
 cd $code_path
+
+if ! $net_connected; then
+    sed -i '' "s/https:\/\/github.com/https:\/\/ghproxy.com\/github.com/g" modules/launch_utils.py
+else
+    sed -i '' "s/https:\/\/ghproxy.com\/github.com/https:\/\/github.com/g" modules/launch_utils.py
+fi
+
 echo
 
 echo "############ Create virtual env ######################"
@@ -241,7 +249,7 @@ fi
 
 # Activate sd env
 echo_green "Activate sd env"
-eval "$($mamba_path shell hook --shell bash)"
+eval "$($mamba_path shell hook --shell posix)"
 micromamba activate sd
 
 # micromamba install basicsr=1.4.2 xformers=0.0.20
@@ -257,14 +265,19 @@ pip cache purge
 
 if ! $net_connected; then
     # Tsinghua mirror has no tb-nightly package, which is needed by basicsr
+    # TODO: reset in clean_up
     pip config set global.index-url https://mirrors.aliyun.com/pypi/simple
     pip config set global.extra-index-url https://pypi.tuna.tsinghua.edu.cn/simple
 
     # pip install torch
+else
+    pip config set global.index-url https://pypi.org/simple
 fi
 
-pip install --upgrade pip setuptools
-pip install basicsr==1.4.2 torch==2.0.0 xformers==0.0.20
+if [[ $(uname -p) != 'arm' ]]; then
+    pip install --upgrade pip setuptools
+    pip install basicsr==1.4.2
+fi
 
 # Install required packages via micromamba
 # micromamba install --yes --file requirements_versions.txt
