@@ -188,23 +188,22 @@ if ! command -v micromamba &>/dev/null; then
     # Activate micromamba in current shell
     eval "$($mamba_path shell hook -s bash)"
     verify_installation micromamba
-
-    # Set default channels for micromamba
-    micromamba config append channels conda-forge
-    micromamba config append channels nodefaults
-    micromamba config set channel_priority strict
-
-    if ! $net_connected; then
-        conda config --set show_channel_urls yes
-        micromamba config prepend channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/
-        # micromamba config prepend channels http://mirrors.ustc.edu.cn/anaconda/cloud/conda-forge/
-        conda clean -i
-    fi
-
-    echo_green "micromamba has been configed"
 else
     echo_green "micromamba has already been installed"
 fi
+
+# Set default channels for micromamba
+micromamba config append channels conda-forge
+micromamba config append channels nodefaults
+micromamba config set channel_priority strict
+
+if ! $net_connected; then
+    micromamba config prepend channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/
+    # micromamba config prepend channels http://mirrors.ustc.edu.cn/anaconda/cloud/conda-forge/
+    micromamba clean -i
+fi
+echo_green "micromamba has been configed"
+
 echo
 
 echo "############ Check and install Git ###################"
@@ -265,7 +264,7 @@ if ! $net_connected; then
 fi
 
 pip install --upgrade pip setuptools
-pip install basicsr==1.4.2 xformers==0.0.20 torch==2.0.0
+pip install basicsr==1.4.2 torch==2.0.0 xformers==0.0.20
 
 # Install required packages via micromamba
 # micromamba install --yes --file requirements_versions.txt
