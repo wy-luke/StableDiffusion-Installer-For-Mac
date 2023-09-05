@@ -9,12 +9,15 @@ mamba_root_path="~/micromamba"
 net_connected=true
 
 # Other variables
+code_path="$installation_path/stable-diffusion-webui"
 brew_installer_path="$tmp_path/brew_installer.sh"
-brew_path="/usr/local/bin"
+brew_pkg_path="/usr/local/bin"
 if [[ $(uname -p) == 'arm' ]]; then
     echo "Apple Silicon"
-    brew_path="/opt/homebrew/bin"
+    brew_pkg_path="/opt/homebrew/bin"
 fi
+brew_path="$brew_pkg_path/brew"
+mamba_path="$brew_pkg_path/micromamba"
 test_mode=0 # Only for test. 0 for no test, 1 for yes-test, 2 for no-test
 
 function clean_up {
@@ -122,7 +125,7 @@ echo "############ Check and install Homebrew ##############"
 # More: https://brew.sh/
 
 # Try to activate homebrew first
-eval "$($brew_path/brew shellenv)"
+eval "$($brew_path shellenv)"
 
 if ! command -v brew &>/dev/null; then
     if curl -fsSL $brew_installer_url -o $brew_installer_path && [ -f $brew_installer_path ]; then
@@ -141,7 +144,7 @@ if ! command -v brew &>/dev/null; then
         fi
 
         yes | /bin/bash -c $brew_installer_path
-        eval "$($brew_path/brew shellenv)"
+        eval "$($brew_path shellenv)"
         verify_installation brew
 
         if ! $net_connected; then
@@ -175,13 +178,13 @@ echo "############ Check and install micromamba ############"
 
 # Try to activate micromamba first
 export MAMBA_ROOT_PREFIX=$mamba_root_path
-eval "$(micromamba shell hook -s bash)"
+eval "$($mamba_path shell hook -s bash)"
 
 if ! command -v micromamba &>/dev/null; then
     # Install micromamba
     brew install micromamba
     # Activate micromamba in current shell
-    eval "$(micromamba shell hook -s bash)"
+    eval "$($mamba_path shell hook -s bash)"
     verify_installation micromamba
 
     # Set default channels for micromamba
@@ -215,7 +218,7 @@ echo
 
 echo "############ Download code ###########################"
 # Check if stable-diffusion-webui's folder exits
-if [ ! -d "$installation_path/stable-diffusion-webui" ]; then
+if [ ! -d $code_path ]; then
     cd $installation_path
     git clone --depth=1 $sd_webui_url
     echo_green "Code has been installed successfully"
@@ -223,7 +226,7 @@ else
     echo_green "Code has already been downloaded"
 fi
 # Enter the SD's folder
-cd "$installation_path/stable-diffusion-webui"
+cd $code_path
 echo
 
 echo "############ Create virtual env ######################"
@@ -237,7 +240,7 @@ fi
 
 # Activate sd env
 echo_green "Activate sd env"
-eval "$(micromamba shell hook --shell bash)"
+eval "$($mamba_path shell hook --shell bash)"
 micromamba activate sd
 
 if [ ! -d "venv" ]; then
