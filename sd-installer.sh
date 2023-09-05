@@ -261,7 +261,7 @@ if ! $net_connected; then
 fi
 
 pip install --upgrade pip setuptools
-pip install basicsr==1.4.2
+pip install basicsr==1.4.2 xformers==0.0.20
 
 # Install required packages via micromamba
 # micromamba install --yes --file requirements_versions.txt
