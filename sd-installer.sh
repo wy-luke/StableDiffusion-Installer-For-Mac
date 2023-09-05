@@ -11,7 +11,7 @@ net_connected=true
 # Other variables
 code_path="$installation_path/stable-diffusion-webui"
 brew_installer_path="$tmp_path/brew_installer.sh"
-brew_pkg_path="/usr/local/bin"
+brew_pkg_path="/usr/local/opt/micromamba/bin"
 if [[ $(uname -p) == 'arm' ]]; then
     echo "Apple Silicon"
     brew_pkg_path="/opt/homebrew/bin"
