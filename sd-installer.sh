@@ -11,13 +11,15 @@ net_connected=true
 # Other variables
 code_path="$installation_path/stable-diffusion-webui"
 brew_installer_path="$tmp_path/brew_installer.sh"
-brew_pkg_path="/usr/local/opt/micromamba/bin"
+
+brew_pkg_path="/usr/local"
 if [[ $(uname -p) == 'arm' ]]; then
     echo "Apple Silicon"
-    brew_pkg_path="/opt/homebrew/bin"
+    brew_pkg_path="/opt/homebrew"
 fi
-brew_path="$brew_pkg_path/brew"
-mamba_path="$brew_pkg_path/micromamba"
+brew_path="$brew_pkg_path/bin/brew"
+mamba_path="$brew_pkg_path/opt/micromamba/bin/micromamba"
+
 test_mode=0 # Only for test. 0 for no test, 1 for yes-test, 2 for no-test
 
 function clean_up {
