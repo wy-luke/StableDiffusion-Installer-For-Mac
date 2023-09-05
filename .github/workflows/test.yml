@@ -15,7 +15,10 @@ jobs:
           sparse-checkout: sd-installer.sh
           sparse-checkout-cone-mode: false
       - name: Yes
-        run: bash sd-installer.sh -1 | grep -q 'loading stable diffusion model' && echo "成功 Success" && exit 0
+        run: |
+          grep --version
+          brew install grep
+          bash sd-installer.sh -1 | grep -q 'loading stable diffusion model' && echo "成功 Success" && exit 0
         shell: bash
 
   No-Test:
@@ -27,5 +30,8 @@ jobs:
           sparse-checkout: sd-installer.sh
           sparse-checkout-cone-mode: false
       - name: No
-        run: bash sd-installer.sh -2 | grep -q 'loading stable diffusion model' && echo "成功 Success" && exit 0
+        run: |
+          grep --version
+          brew install grep
+          bash sd-installer.sh -2 | grep -q 'loading stable diffusion model' && echo "成功 Success" && exit 0
         shell: bash
