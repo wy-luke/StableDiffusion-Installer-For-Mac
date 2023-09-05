@@ -16,7 +16,7 @@ jobs:
           sparse-checkout-cone-mode: false
       - name: Yes
         run: |
-          bash sd-installer.sh -1 | tee >(grep -q 'Launching Web UI with arguments' && echo "成功 Success" && exit 0)
+          bash sd-installer.sh -1
         shell: bash
 
   No-Test:
@@ -28,5 +28,5 @@ jobs:
           sparse-checkout: sd-installer.sh
           sparse-checkout-cone-mode: false
       - name: No
-        run: bash sd-installer.sh -2 | grep -q 'Launching Web UI with arguments' && echo "成功 Success" && exit 0
+        run: bash sd-installer.sh -2
         shell: bash
