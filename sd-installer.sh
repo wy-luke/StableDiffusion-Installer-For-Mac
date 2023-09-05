@@ -10,6 +10,11 @@ net_connected=true
 
 # Other variables
 brew_installer_path="$tmp_path/brew_installer.sh"
+brew_pkg_path="/usr/local/opt"
+if [[ $(uname -p) == 'arm' ]]; then
+    echo "Apple Silicon"
+    brew_pkg_path="/opt/homebrew/bin"
+fi
 test_mode=0 # Only for test. 0 for no test, 1 for yes-test, 2 for no-test
 
 function clean_up {
@@ -117,7 +122,7 @@ echo "############ Check and install Homebrew ##############"
 # More: https://brew.sh/
 
 # Try to activate homebrew first
-eval "$(/opt/homebrew/bin/brew shellenv)"
+eval "$($brew_pkg_path/brew shellenv)"
 
 if ! command -v brew &>/dev/null; then
     if curl -fsSL $brew_installer_url -o $brew_installer_path && [ -f $brew_installer_path ]; then
@@ -136,7 +141,7 @@ if ! command -v brew &>/dev/null; then
         fi
 
         yes | /bin/bash -c $brew_installer_path
-        eval "$(/opt/homebrew/bin/brew shellenv)"
+        eval "$($brew_pkg_path/brew shellenv)"
         verify_installation brew
 
         if ! $net_connected; then
@@ -170,13 +175,13 @@ echo "############ Check and install micromamba ############"
 
 # Try to activate micromamba first
 export MAMBA_ROOT_PREFIX=$mamba_root_path
-eval "$(/opt/homebrew/bin/micromamba shell hook -s bash)"
+eval "$($brew_pkg_path/micromamba shell hook -s bash)"
 
 if ! command -v micromamba &>/dev/null; then
     # Install micromamba
     brew install micromamba
     # Activate micromamba in current shell
-    eval "$(/opt/homebrew/bin/micromamba shell hook -s bash)"
+    eval "$($brew_pkg_path/micromamba shell hook -s bash)"
     verify_installation micromamba
 
     # Set default channels for micromamba
