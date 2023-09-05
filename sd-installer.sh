@@ -249,11 +249,13 @@ source venv/bin/activate
 # Delete pip cache to avoid some errors
 pip cache purge
 
-# Tsinghua mirror has no nightly package, which is needed by basicsr
-# if ! $net_connected; then
-#     pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
-#     pip install torch
-# fi
+if ! $net_connected; then
+    # Tsinghua mirror has no tb-nightly package, which is needed by basicsr
+    pip config set global.index-url https://mirrors.aliyun.com/pypi/simple
+    pip config set global.extra-index-url https://pypi.tuna.tsinghua.edu.cn/simple
+
+    pip install torch
+fi
 
 pip install --upgrade pip setuptools
 pip install basicsr==1.4.2
