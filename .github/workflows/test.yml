@@ -28,5 +28,6 @@ jobs:
           sparse-checkout: sd-installer.sh
           sparse-checkout-cone-mode: false
       - name: No
-        run: until bash sd-installer.sh -2 | grep -m 1 "Launching Web UI with arguments"; do : ; done
+        run: |
+          until bash sd-installer.sh -2 | grep -m 1 "Launching Web UI with arguments"; do : ; done
         shell: bash
