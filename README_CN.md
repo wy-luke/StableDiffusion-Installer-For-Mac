@@ -4,7 +4,7 @@
 
 # Stable Diffusion Installer For Mac
 
-[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white)](https://conventionalcommits.org) ![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/t/wy-luke/StableDiffusion-Installer-For-Mac) ![GitHub release (with filter)](https://img.shields.io/github/v/release/wy-luke/StableDiffusion-Installer-For-Mac)
+[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white)](https://conventionalcommits.org) ![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/t/wy-luke/StableDiffusion-Installer-For-Mac) ![GitHub release (with filter)](https://img.shields.io/github/v/release/wy-luke/StableDiffusion-Installer-For-Mac) [![Test](https://github.com/wy-luke/StableDiffusion-Installer-For-Mac/actions/workflows/test.yml/badge.svg)](https://github.com/wy-luke/StableDiffusion-Installer-For-Mac/actions/workflows/test.yml)
 
 帮助你**快速、轻松**地将 Stable Diffusion web UI 安装在你的 mac 上。
 

@@ -15,9 +15,8 @@ jobs:
           sparse-checkout: sd-installer.sh
           sparse-checkout-cone-mode: false
       - name: Yes
-        run: |
-          until bash sd-installer.sh -1 | grep -m 1 "Launching Web UI with arguments"; do : ; done
-        shell: bash
+        run: bash sd-installer.sh -1 | grep -q 'Launching Web UI with arguments' && echo "成功 Success" && exit 0
+        shell: /bin/bash --noprofile --norc -e {0}
 
   No-Test:
     runs-on: macos-latest
@@ -28,6 +27,5 @@ jobs:
           sparse-checkout: sd-installer.sh
           sparse-checkout-cone-mode: false
       - name: No
-        run: |
-          until bash sd-installer.sh -2 | grep -m 1 "Launching Web UI with arguments"; do : ; done
-        shell: bash
+        run: bash sd-installer.sh -2 | grep -q 'Launching Web UI with arguments' && echo "成功 Success" && exit 0
+        shell: /bin/bash --noprofile --norc -e {0}
