@@ -174,15 +174,6 @@ if ! command -v brew &>/dev/null; then
         yes | /bin/bash -c $brew_installer_path
         eval "$($brew_path shellenv)"
         verify_installation brew
-
-        if [ "$network_connected" == false ]; then
-            export HOMEBREW_API_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/api"
-            export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles"
-            export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"
-            export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git"
-            export HOMEBREW_PIP_INDEX_URL="https://pypi.tuna.tsinghua.edu.cn/simple"
-        fi
-        brew update
     else
         echo_red "Homebrew 安装文件下载失败, 请检查网络连接"
         echo_red "Failed to download Homebrew installation script, please check your network connection"
@@ -192,6 +183,15 @@ if ! command -v brew &>/dev/null; then
 else
     echo_green "Homebrew has already been installed"
 fi
+
+if [ "$network_connected" == false ]; then
+    export HOMEBREW_API_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/api"
+    export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles"
+    export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"
+    export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git"
+    export HOMEBREW_PIP_INDEX_URL="https://pypi.tuna.tsinghua.edu.cn/simple"
+fi
+brew update
 
 echo_green "Install the packages required"
 brew install cmake protobuf rust git wget
