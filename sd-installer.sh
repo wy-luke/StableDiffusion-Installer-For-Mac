@@ -48,7 +48,7 @@ function handle_error {
     if [[ $error_choice == [yY] ]]; then
         # Retry the command
 
-        if [[ $network_connected == false ]]; then
+        if [ "$network_connected" == false ]; then
             /bin/bash -c "$(curl -fsSL $sd_installer_url)" -c
         else
             /bin/bash -c "$(curl -fsSL $sd_installer_url)"
@@ -76,12 +76,12 @@ function verify_installation {
 while [[ $# -gt 0 ]]; do
     case "$1" in
     -test | -t)
-        value =${2:1}
-        if value != 1 && value != 2; then
+        value=${2:1}
+        if [ "$value" != 1 ] && [ "$value" != 2 ]; then
             echo_red "未知选项: $1 $2"
             exit 1
         fi
-        test_mode=value
+        test_mode=$value
         shift # past argument
         shift # past value
         ;;
@@ -120,7 +120,7 @@ else
     #     echo_green "网络通畅, 正常安装"
     # fi
 
-    if [[ $network_connected == false ]]; then
+    if [ "$network_connected" == false ]; then
         echo_green "将设置国内镜像源安装, 包括 homebrew、conda-forge、pip、github 等, 但链接可能会不稳定或失效, 若安装失败可以重试"
     else
         echo_green "恭喜网络通畅, 正常安装"
@@ -131,7 +131,7 @@ brew_installer_url="https://raw.githubusercontent.com/Homebrew/install/HEAD/inst
 sd_installer_url="https://raw.githubusercontent.com/wy-luke/StableDiffusion-Installer-For-Mac/main/sd-installer.sh"
 sd_webui_url="https://github.com/AUTOMATIC1111/stable-diffusion-webui.git"
 
-if ! $network_connected; then
+if [ "$network_connected" == false ]; then
     # raw.gitmirror.com 备份
     # brew_installer_url="https://raw.gitmirror.com/Homebrew/install/HEAD/install.sh"
     # sd_installer_url="https://raw.gitmirror.com/wy-luke/StableDiffusion-Installer-For-Mac/main/sd-installer.sh"
@@ -164,7 +164,7 @@ if ! command -v brew &>/dev/null; then
         # Grant the permission to execute the installation script
         chmod +x $brew_installer_path
 
-        if ! $network_connected; then
+        if [ "$network_connected" == false ]; then
             export HOMEBREW_API_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/api"
             export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles"
             export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"
@@ -175,7 +175,7 @@ if ! command -v brew &>/dev/null; then
         eval "$($brew_path shellenv)"
         verify_installation brew
 
-        if ! $network_connected; then
+        if [ "$network_connected" == false ]; then
             export HOMEBREW_API_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/api"
             export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles"
             export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"
@@ -219,7 +219,7 @@ else
 fi
 
 # Set default channels for micromamba
-if ! $network_connected; then
+if [ "$network_connected" == false ]; then
     micromamba config prepend channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/
     # micromamba config prepend channels http://mirrors.ustc.edu.cn/anaconda/cloud/conda-forge/
 else
@@ -256,7 +256,7 @@ fi
 # Enter the SD's folder
 cd $code_path
 
-if ! $network_connected; then
+if [ "$network_connected" == false ]; then
     sed -i '' "s/https:\/\/github.com/https:\/\/ghproxy.com\/github.com/g" modules/launch_utils.py
 else
     sed -i '' "s/https:\/\/ghproxy.com\/github.com/https:\/\/github.com/g" modules/launch_utils.py
@@ -289,7 +289,7 @@ source venv/bin/activate
 # Delete pip cache to avoid some errors
 pip cache purge
 
-if ! $network_connected; then
+if [ "$network_connected" == false ]; then
     # Tsinghua mirror has no tb-nightly package, which is needed by basicsr
     # TODO: reset in clean_up
     pip config set global.index-url https://mirrors.aliyun.com/pypi/simple
@@ -309,7 +309,7 @@ fi
 # micromamba install --yes --file requirements_versions.txt
 
 # Fix issue https://github.com/AUTOMATIC1111/stable-diffusion-webui/issues/12210
-if ! $network_connected; then
+if [ "$network_connected" == false ]; then
     echo >>webui-macos-env.sh
     echo "export TORCH_COMMAND=\"pip install wheel==0.41.1 torch==2.0.1 torchvision==0.15.2 cython && pip install git+https://ghproxy.com/https://github.com/TencentARC/GFPGAN.git@8d2447a2d918f8eba5a4a01463fd48e45126a379 --prefer-binary\"" >>webui-macos-env.sh
 fi
