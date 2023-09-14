@@ -256,6 +256,9 @@ fi
 # Enter the SD's folder
 cd $code_path
 
+# TODO: Optional
+git pull
+
 if [ "$network_connected" == false ]; then
     sed -i '' "s/https:\/\/github.com/https:\/\/ghproxy.com\/github.com/g" modules/launch_utils.py
 else
