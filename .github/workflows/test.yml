@@ -3,29 +3,36 @@ name: Test
 on:
   workflow_dispatch:
   push:
-    branches: [main]
+    branches: [main, dev]
 
 jobs:
-  Yes-Test:
-    runs-on: macos-latest
+  Network-Connected-Test-13:
+    runs-on: macOS-13
     steps:
       - name: Checkout
         uses: actions/checkout@v3
         with:
           sparse-checkout: sd-installer.sh
           sparse-checkout-cone-mode: false
-      - name: Yes
-        run: bash sd-installer.sh -1 | grep -q 'Launching Web UI with arguments' && echo "成功 Success" && exit 0
+      - name: Install
+        run: bash sd-installer.sh -t -1 | grep -q 'Launching Web UI with arguments' && echo "成功 Success" && exit 0
         shell: /bin/bash --noprofile --norc -e {0}
 
-  No-Test:
-    runs-on: macos-latest
+  Network-Connected-Test-12:
+    runs-on: macos-12
     steps:
       - name: Checkout
         uses: actions/checkout@v3
         with:
           sparse-checkout: sd-installer.sh
           sparse-checkout-cone-mode: false
-      - name: No
-        run: bash sd-installer.sh -2 | grep -q 'Launching Web UI with arguments' && echo "成功 Success" && exit 0
+      - name: Install
+        run: bash sd-installer.sh -t -1 | grep -q 'Launching Web UI with arguments' && echo "成功 Success" && exit 0
+        shell: /bin/bash --noprofile --norc -e {0}
+
+  Network-Not-Connected-Test:
+    runs-on: macos-latest
+    steps:
+      - name: Install
+        run: curl -fsSL https://raw.fastgit.org/wy-luke/StableDiffusion-Installer-For-Mac/main/sd-installer.sh | /bin/bash -s -- -c -t -2 | grep -q 'Launching Web UI with arguments' && echo "成功 Success" && exit 0
         shell: /bin/bash --noprofile --norc -e {0}
