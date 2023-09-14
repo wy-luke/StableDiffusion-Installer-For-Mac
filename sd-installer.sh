@@ -132,9 +132,13 @@ sd_installer_url="https://raw.githubusercontent.com/wy-luke/StableDiffusion-Inst
 sd_webui_url="https://github.com/AUTOMATIC1111/stable-diffusion-webui.git"
 
 if ! $network_connected; then
-    brew_installer_url="https://raw.fastgit.org/Homebrew/install/HEAD/install.sh"
-    sd_installer_url="https://raw.fastgit.org/wy-luke/StableDiffusion-Installer-For-Mac/main/sd-installer.sh"
-    sd_webui_url="https://ghproxy.com/github.com/AUTOMATIC1111/stable-diffusion-webui.git"
+    # raw.gitmirror.com 备份
+    # brew_installer_url="https://raw.gitmirror.com/Homebrew/install/HEAD/install.sh"
+    # sd_installer_url="https://raw.gitmirror.com/wy-luke/StableDiffusion-Installer-For-Mac/main/sd-installer.sh"
+
+    brew_installer_url="https://ghproxy.com/https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh"
+    sd_installer_url="https://ghproxy.com/https://raw.githubusercontent.com/wy-luke/StableDiffusion-Installer-For-Mac/main/sd-installer.sh"
+    sd_webui_url="https://ghproxy.com/https://github.com/AUTOMATIC1111/stable-diffusion-webui"
 fi
 
 echo "############ 开始安装 Stable Diffusion web UI #########" && echo
@@ -164,6 +168,7 @@ if ! command -v brew &>/dev/null; then
             export HOMEBREW_API_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/api"
             export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles"
             export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"
+            export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git"
         fi
 
         yes | /bin/bash -c $brew_installer_path

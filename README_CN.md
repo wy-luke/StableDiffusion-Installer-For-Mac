@@ -25,7 +25,7 @@
    国内用户存在网络问题时，可以尝试使用以下命令：
 
    ```bash
-   curl -fsSL https://raw.fastgit.org/wy-luke/StableDiffusion-Installer-For-Mac/main/sd-installer.sh | /bin/bash -s -- -c
+   curl -fsSL https://ghproxy.com/https://raw.githubusercontent.com/wy-luke/StableDiffusion-Installer-For-Mac/main/sd-installer.sh | /bin/bash -s -- -c
    ```
 
    该命令为安装脚本添加 `-c` 参数，会在安装时自动切换为国内源，进行网络加速，包括 homebrew、conda-forge、pip、github 等, 但链接可能会不稳定或失效, 若安装失败可以重试。
