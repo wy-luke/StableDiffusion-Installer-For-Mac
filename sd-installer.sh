@@ -104,10 +104,10 @@ done
 if [ "$test_mode" != 0 ]; then
     if [ "$test_mode" == 1 ]; then
         network_connected=true
-        echo_green "Yes-test"
+        echo_green "Network-Connected-Test"
     else
         network_connected=false
-        echo_green "No-test"
+        echo_green "Network-Not-Connected-Test"
     fi
 else
     # echo_green "For non-Chinese users, you could just ignore this and press the Enter key"
