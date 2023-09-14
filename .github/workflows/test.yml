@@ -5,6 +5,9 @@ on:
   push:
     branches: [main, dev]
 
+env:
+  BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
+
 jobs:
   Network-Connected-Test-13:
     runs-on: macOS-13
@@ -34,5 +37,5 @@ jobs:
     runs-on: macos-latest
     steps:
       - name: Install
-        run: curl -fsSL https://ghproxy.com/https://raw.githubusercontent.com/wy-luke/StableDiffusion-Installer-For-Mac/main/sd-installer.sh | /bin/bash -s -- -c -t -2 | grep -q 'Launching Web UI with arguments' && echo "成功 Success" && exit 0
+        run: curl -fsSL https://ghproxy.com/https://raw.githubusercontent.com/wy-luke/StableDiffusion-Installer-For-Mac/$BRANCH_NAME/sd-installer.sh | /bin/bash -s -- -c -t -2 | grep -q 'Launching Web UI with arguments' && echo "成功 Success" && exit 0
         shell: /bin/bash --noprofile --norc -e {0}
