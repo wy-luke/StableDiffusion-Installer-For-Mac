@@ -1,5 +1,31 @@
 # Changelog
 
+## [2.0.0](https://github.com/wy-luke/StableDiffusion-Installer-For-Mac/compare/v1.1.0...v2.0.0) (2023-09-15)
+
+
+### Features
+
+* add -c argument ([#23](https://github.com/wy-luke/StableDiffusion-Installer-For-Mac/issues/23)) ([8a1fe90](https://github.com/wy-luke/StableDiffusion-Installer-For-Mac/commit/8a1fe90056e53c6d84688253851cd0bc070c1658))
+* add update_mode argument ([eb51b52](https://github.com/wy-luke/StableDiffusion-Installer-For-Mac/commit/eb51b527e89926bc51e8a2ef859488f086fc0f2b))
+
+
+### Bug Fixes
+
+* auto stop ([37d970c](https://github.com/wy-luke/StableDiffusion-Installer-For-Mac/commit/37d970c0c4230cbe833577ed1430da080c494fda))
+* auto stop ([37d970c](https://github.com/wy-luke/StableDiffusion-Installer-For-Mac/commit/37d970c0c4230cbe833577ed1430da080c494fda))
+* auto stop ([37d970c](https://github.com/wy-luke/StableDiffusion-Installer-For-Mac/commit/37d970c0c4230cbe833577ed1430da080c494fda))
+* auto stop ([37d970c](https://github.com/wy-luke/StableDiffusion-Installer-For-Mac/commit/37d970c0c4230cbe833577ed1430da080c494fda))
+* auto stop ([37d970c](https://github.com/wy-luke/StableDiffusion-Installer-For-Mac/commit/37d970c0c4230cbe833577ed1430da080c494fda))
+* auto stop ([37d970c](https://github.com/wy-luke/StableDiffusion-Installer-For-Mac/commit/37d970c0c4230cbe833577ed1430da080c494fda))
+* auto stop ([37d970c](https://github.com/wy-luke/StableDiffusion-Installer-For-Mac/commit/37d970c0c4230cbe833577ed1430da080c494fda))
+* auto stop ([ec7187e](https://github.com/wy-luke/StableDiffusion-Installer-For-Mac/commit/ec7187e21f0fc74f48d01112d1cdb756d16c1552))
+* auto stop ([#21](https://github.com/wy-luke/StableDiffusion-Installer-For-Mac/issues/21)) ([e12070c](https://github.com/wy-luke/StableDiffusion-Installer-For-Mac/commit/e12070c2e4ca965a67978e2dba3a066f2d270a4f))
+
+
+### Documentation
+
+* add test badge ([0b4523b](https://github.com/wy-luke/StableDiffusion-Installer-For-Mac/commit/0b4523b770bf7cd96d2611d426b1ffa8260d6de2))
+
 ## [1.1.0](https://github.com/wy-luke/StableDiffusion-Installer-For-Mac/compare/v1.0.1...v1.1.0) (2023-09-05)
 
 
