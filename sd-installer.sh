@@ -6,7 +6,6 @@ set -u
 installation_path=$HOME
 tmp_path="$HOME/.sd-installer"
 mamba_root_path="~/micromamba"
-network_connected=true
 
 # Other variables
 code_path="$installation_path/stable-diffusion-webui"
@@ -20,7 +19,9 @@ fi
 brew_path="$brew_pkg_path/bin/brew"
 mamba_path="$brew_pkg_path/opt/micromamba/bin/micromamba"
 
-test_mode=0 # Only for test. 0 for no test, 1 for Network-Connected-Test, 2 for Network-Not-Connected-Test
+test_mode=0 # 0 for no test, 1 for Network-Connected-Test, 2 for Network-Not-Connected-Test
+update_mode=false
+network_connected=true
 
 function clean_up {
     echo "############ Clean ###################################"
@@ -75,7 +76,7 @@ function verify_installation {
 # Parse command line arguments
 while [[ $# -gt 0 ]]; do
     case "$1" in
-    -test | -t)
+    -t | -test)
         value=${2:1}
         if [ "$value" != 1 ] && [ "$value" != 2 ]; then
             echo_red "未知选项: $1 $2"
@@ -84,6 +85,10 @@ while [[ $# -gt 0 ]]; do
         test_mode=$value
         shift # past argument
         shift # past value
+        ;;
+    -u | -update)
+        update_mode=true
+        shift
         ;;
     -c)
         network_connected=false
@@ -256,8 +261,10 @@ fi
 # Enter the SD's folder
 cd $code_path
 
-# TODO: Optional
-git pull
+if [ "$update_mode" == true ]; then
+    git reset --hard
+    git pull
+fi
 
 if [ "$network_connected" == false ]; then
     sed -i '' "s/https:\/\/github.com/https:\/\/ghproxy.com\/github.com/g" modules/launch_utils.py
