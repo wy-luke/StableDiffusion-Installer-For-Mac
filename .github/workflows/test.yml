@@ -4,13 +4,15 @@ on:
   workflow_dispatch:
   push:
     branches: [main, dev]
+    paths:
+      - "sd-installer.sh"
 
 env:
   BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
 
 jobs:
   Network-Connected-Test-macOS13:
-    runs-on: macOS-13
+    runs-on: macos-13
     steps:
       - name: Checkout
         uses: actions/checkout@v3
