@@ -32,7 +32,80 @@ Theoretically, it should work on both Apple Silicon and Intel CPU with any versi
 
 5. Open your web browser and enter `http://127.0.0.1:7860` (the underlined part in the image above) to access the Stable Diffusion web UI.
 
+   > Note 1: Normally, it will automatically open the web browser.
+
+   > **Note 2: Don't close the terminal app while using Stable Diffusion web UI, just keep it running background. If you accidentally close the terminal, see step 7 below.**
+
 6. If the installation fails, you will be prompted whether to retry. Type `y` or just simply **press the Enter key** to try again. Type `n` to exit.
+
+## Re-run
+
+Use the command below to **re-run** Stable Diffusion web UI after the installation sucessfully completes.
+
+```bash
+/bin/bash $HOME/stable-diffusion-webui/webui.sh
+```
+
+If you move the `stable-diffusion-webui` folder to another path, you need to change the command above accordingly. Besides, you need always append `/webui.sh` in the end.
+
+```bash
+/bin/bash /your/path/of/sd/webui.sh
+```
+
+## Troubleshooting
+
+### \*\*\*\* not implemented for 'Half'
+
+Most likely, this is due to poor compatibility with AMD graphics cards.
+
+The solution is simple. Run the command below, then execute the **re-run** command above again to start and use SD.
+
+```bash
+echo 'export COMMANDLINE_ARGS="--upcast-sampling --no-half-vae --use-cpu interrogate --precision full --no-half --skip-torch-cuda-test"' > $HOME/stable-diffusion-webui/webui-user.sh
+```
+
+### MPS backend out of memory
+
+This issue is caused by insufficient memory. You can reduce the memory requirement by adding `PYTORCH_MPS_HIGH_WATERMARK_RATIO=0.7` before the **re-run** command to make SD run correctly.
+
+However, this will result in longer processing time to generate a image.
+
+Replace the **re-run** command with:
+
+```bash
+PYTORCH_MPS_HIGH_WATERMARK_RATIO=0.7 /bin/bash $HOME/stable-diffusion-webui/webui.sh
+```
+
+If you still encounter this issue, you can try further reducing the value, such as:
+
+```bash
+PYTORCH_MPS_HIGH_WATERMARK_RATIO=0.5 /bin/bash $HOME/stable-diffusion-webui/webui.sh
+```
+
+## Download models
+
+Place the models downloaded to `stable-diffusion-webui/models/Stable-diffusion` folder. Then refresh the Stable Diffusion web UI page in the browser and you will see it in the list.
+
+1. Some popular official Stable Diffusion 1.x models:
+
+   - [Stable DIffusion 1.4](https://huggingface.co/CompVis/stable-diffusion-v-1-4-original) ([sd-v1-4.ckpt](https://huggingface.co/CompVis/stable-diffusion-v-1-4-original/resolve/main/sd-v1-4.ckpt))
+   - [Stable Diffusion 1.5](https://huggingface.co/runwayml/stable-diffusion-v1-5) ([v1-5-pruned-emaonly.ckpt](https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.ckpt))
+   - [Stable Diffusion 1.5 Inpainting](https://huggingface.co/runwayml/stable-diffusion-inpainting) ([sd-v1-5-inpainting.ckpt](https://huggingface.co/runwayml/stable-diffusion-inpainting/resolve/main/sd-v1-5-inpainting.ckpt))
+
+2. Stable Diffusion 2.0 and 2.1 models:
+
+   - [Stable Diffusion 2.0](https://huggingface.co/stabilityai/stable-diffusion-2) ([768-v-ema.ckpt](https://huggingface.co/stabilityai/stable-diffusion-2/resolve/main/768-v-ema.ckpt))
+   - [Stable Diffusion 2.1](https://huggingface.co/stabilityai/stable-diffusion-2-1) ([v2-1_768-ema-pruned.ckpt](https://huggingface.co/stabilityai/stable-diffusion-2-1/resolve/main/v2-1_768-ema-pruned.ckpt))
+
+   These models require both a model and a configuration file, and image width & height will need to be set to 768 or higher when generating images.
+
+   For the configuration file, hold down the option key on the keyboard and click [here](https://github.com/Stability-AI/stablediffusion/raw/main/configs/stable-diffusion/v2-inference-v.yaml) to download `v2-inference-v.yaml` (it may download as `v2-inference-v.yaml.yml`). In Finder select that file then go to the menu and select `File` \> `Get Info`. In the window that appears select the filename and change it to the filename of the model, except with the file extension `.yaml` instead of `.ckpt`, press return on the keyboard (confirm changing the file extension if prompted), and place it in the same folder as the model (e.g. if you downloaded the `768-v-ema.ckpt` model, rename it to `768-v-ema.yaml` and put it in `stable-diffusion-webui/models/Stable-diffusion` along with the model).
+
+   - [Stable Diffusion 2.0 depth model](https://huggingface.co/stabilityai/stable-diffusion-2-depth) ([512-depth-ema.ckpt](https://huggingface.co/stabilityai/stable-diffusion-2-depth/resolve/main/512-depth-ema.ckpt)).
+
+   Download the `v2-midas-inference.yaml` configuration file by holding down option on the keyboard and clicking [here](https://github.com/Stability-AI/stablediffusion/raw/main/configs/stable-diffusion/v2-midas-inference.yaml), then rename it with the `.yaml` extension in the same way as mentioned above and put it in `stable-diffusion-webui/models/Stable-diffusion` along with the model. Note that this model works at image dimensions of 512 width/height or higher instead of 768.
+
+3. You could also download all kinds of models in [civitai](https://civitai.com/), a great site!
 
 ## Features
 
@@ -69,3 +142,7 @@ Theoretically, it should work on both Apple Silicon and Intel CPU with any versi
    /opt/homebrew/bin/micromamba shell init -s bash -p ~/micromamba
    source ~/.bashrc
    ```
+
+## Credit
+
+Thanks to [AUTOMATIC1111](https://github.com/AUTOMATIC1111) and the [stable-diffusion-webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui).
