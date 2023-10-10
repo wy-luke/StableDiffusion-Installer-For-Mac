@@ -6,11 +6,17 @@
 
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white)](https://conventionalcommits.org) ![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/t/wy-luke/StableDiffusion-Installer-For-Mac) ![GitHub release (with filter)](https://img.shields.io/github/v/release/wy-luke/StableDiffusion-Installer-For-Mac) [![Test](https://github.com/wy-luke/StableDiffusion-Installer-For-Mac/actions/workflows/test.yml/badge.svg)](https://github.com/wy-luke/StableDiffusion-Installer-For-Mac/actions/workflows/test.yml)
 
-Assist you in **quickly and effortlessly** installing the Stable Diffusion web UI on your Mac.
+Install Stable Diffusion web UI on your Mac **with one sigle command**:
+
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/wy-luke/StableDiffusion-Installer-For-Mac/main/sd-installer.sh)"
+```
 
 Theoretically, it should work on both Apple Silicon and Intel CPU with any version of macOS.
 
-## Usage
+If you encounter any issues or want some new features, feel free to contact me via [here](https://github.com/wy-luke/StableDiffusion-Installer-For-Mac/issues/new).
+
+## Detailed usage
 
 1. In the **Applications** folder, locate **Terminal** <img src="./images/terminal.png" alt="terminal" width="25"/> and open it.
 
@@ -34,13 +40,15 @@ Theoretically, it should work on both Apple Silicon and Intel CPU with any versi
 
    > Note 1: Normally, it will automatically open the web browser.
 
-   > **Note 2: Don't close the terminal app while using Stable Diffusion web UI, just keep it running background. If you accidentally close the terminal, see step 7 below.**
+   > **Note 2: Don't close the terminal app while using Stable Diffusion web UI, just keep it running background. If you accidentally close the terminal, see Re-run section below.**
 
-6. If the installation fails, you will be prompted whether to retry. Type `y` or just simply **press the Enter key** to try again. Type `n` to exit.
+6. If the installation fails, you will be prompted to select whether to retry. Type `y` or just simply **press the Enter key** to try again. Type `n` to exit.
 
 ## Re-run
 
-Use the command below to **re-run** Stable Diffusion web UI after the installation sucessfully completes.
+Keep the terminal running while using SD. When you don't use it anymore, just close the brower page and the terminal.
+
+If you want to re-run SD after the first usage, use the command below to **re-run** Stable Diffusion web UI.
 
 ```bash
 /bin/bash $HOME/stable-diffusion-webui/webui.sh
@@ -49,7 +57,7 @@ Use the command below to **re-run** Stable Diffusion web UI after the installati
 If you move the `stable-diffusion-webui` folder to another path, you need to change the command above accordingly. Besides, you need always append `/webui.sh` in the end.
 
 ```bash
-/bin/bash /your/path/of/sd/webui.sh
+/bin/bash /your/path/of/stable-diffusion-webui/webui.sh
 ```
 
 ## Troubleshooting
@@ -58,7 +66,7 @@ If you move the `stable-diffusion-webui` folder to another path, you need to cha
 
 Most likely, this is due to poor compatibility with AMD graphics cards.
 
-The solution is simple. Run the command below, then execute the **re-run** command above again to start and use SD.
+The solution is simple. Run the command below, then execute the **re-run** command above again to start SD.
 
 ```bash
 echo 'export COMMANDLINE_ARGS="--upcast-sampling --no-half-vae --use-cpu interrogate --precision full --no-half --skip-torch-cuda-test"' > $HOME/stable-diffusion-webui/webui-user.sh
@@ -68,7 +76,7 @@ echo 'export COMMANDLINE_ARGS="--upcast-sampling --no-half-vae --use-cpu interro
 
 This issue is caused by insufficient memory. You can reduce the memory requirement by adding `PYTORCH_MPS_HIGH_WATERMARK_RATIO=0.7` before the **re-run** command to make SD run correctly.
 
-However, this will result in longer processing time to generate a image.
+> Note: This will result in longer processing time to generate a image. You could adjust the value of `PYTORCH_MPS_HIGH_WATERMARK_RATIO` according to your mac performance.
 
 Replace the **re-run** command with:
 
@@ -99,7 +107,9 @@ Place the models downloaded to `stable-diffusion-webui/models/Stable-diffusion` 
 
    These models require both a model and a configuration file, and image width & height will need to be set to 768 or higher when generating images.
 
-   For the configuration file, hold down the option key on the keyboard and click [here](https://github.com/Stability-AI/stablediffusion/raw/main/configs/stable-diffusion/v2-inference-v.yaml) to download `v2-inference-v.yaml` (it may download as `v2-inference-v.yaml.yml`). In Finder select that file then go to the menu and select `File` \> `Get Info`. In the window that appears select the filename and change it to the filename of the model, except with the file extension `.yaml` instead of `.ckpt`, press return on the keyboard (confirm changing the file extension if prompted), and place it in the same folder as the model (e.g. if you downloaded the `768-v-ema.ckpt` model, rename it to `768-v-ema.yaml` and put it in `stable-diffusion-webui/models/Stable-diffusion` along with the model).
+   For the configuration file, hold down the option key on the keyboard and click [here](https://github.com/Stability-AI/stablediffusion/raw/main/configs/stable-diffusion/v2-inference-v.yaml) to download `v2-inference-v.yaml` (it may download as `v2-inference-v.yaml.yml`). In Finder select that file then go to the menu and select `File` \> `Get Info`. In the window that appears select the filename and change it to the filename of the model, except with the file extension `.yaml` instead of `.ckpt`, press return on the keyboard (confirm changing the file extension if prompted), and place it in the same folder as the model
+
+   E.g. if you downloaded the `768-v-ema.ckpt` model, rename it to `768-v-ema.yaml` and put it in `stable-diffusion-webui/models/Stable-diffusion` along with the model.
 
    - [Stable Diffusion 2.0 depth model](https://huggingface.co/stabilityai/stable-diffusion-2-depth) ([512-depth-ema.ckpt](https://huggingface.co/stabilityai/stable-diffusion-2-depth/resolve/main/512-depth-ema.ckpt)).
 
@@ -145,4 +155,8 @@ Place the models downloaded to `stable-diffusion-webui/models/Stable-diffusion` 
 
 ## Credit
 
-Thanks to [AUTOMATIC1111](https://github.com/AUTOMATIC1111) and the [stable-diffusion-webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui).
+[AUTOMATIC1111](https://github.com/AUTOMATIC1111) and [stable-diffusion-webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui)
+
+[Homebrew](https://github.com/Homebrew/brew)
+
+[Mamba](https://github.com/mamba-org/mamba)
