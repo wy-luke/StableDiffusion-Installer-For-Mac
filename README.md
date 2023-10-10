@@ -12,6 +12,8 @@ Install Stable Diffusion web UI on your Mac **with one sigle command**:
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/wy-luke/StableDiffusion-Installer-For-Mac/main/sd-installer.sh)"
 ```
 
+Use mamba to create virtual environment, so it won't conflict with and won't pollute the Python environment in your system. Keep your Mac system untouched. And the uninstallation script is on the way.
+
 Theoretically, it should work on both Apple Silicon and Intel CPU with any version of macOS.
 
 If you encounter any issues or want some new features, feel free to contact me via [here](https://github.com/wy-luke/StableDiffusion-Installer-For-Mac/issues/new).
@@ -135,7 +137,7 @@ Place the models downloaded to `stable-diffusion-webui/models/Stable-diffusion` 
    eval $(/opt/homebrew/bin/brew shellenv)
    ```
 
-2. Use [micromamba](https://mamba.readthedocs.io/en/latest/user_guide/micromamba.html), which is a tiny version of the [mamba](https://mamba.readthedocs.io/en/latest/index.html#), as python related package and environment manager instead of Conda.
+2. Use [micromamba](https://mamba.readthedocs.io/en/latest/user_guide/micromamba.html), which is a tiny version of the [mamba](https://mamba.readthedocs.io/en/latest/index.html#), as Python related package and environment manager instead of Conda.
 
    Compared to Conda, it has no base environment (empty) nor default version of Python, meaning that it won't interfere or contaminate your system's Python environment at all. Additionally, it's significantly faster.
 

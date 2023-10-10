@@ -6,7 +6,7 @@
 
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white)](https://conventionalcommits.org) ![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/t/wy-luke/StableDiffusion-Installer-For-Mac) ![GitHub release (with filter)](https://img.shields.io/github/v/release/wy-luke/StableDiffusion-Installer-For-Mac) [![Test](https://github.com/wy-luke/StableDiffusion-Installer-For-Mac/actions/workflows/test.yml/badge.svg)](https://github.com/wy-luke/StableDiffusion-Installer-For-Mac/actions/workflows/test.yml)
 
-使用一条命令在你的 Mac 上安装 Stable Diffusion web UI:
+一条命令为你的 Mac 装上 Stable Diffusion web UI:
 
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/wy-luke/StableDiffusion-Installer-For-Mac/main/sd-installer.sh)"
@@ -17,6 +17,8 @@
 ```bash
 curl -fsSL https://ghproxy.com/https://raw.githubusercontent.com/wy-luke/StableDiffusion-Installer-For-Mac/main/sd-installer.sh | /bin/bash -s -- -c
 ```
+
+使用 mamba 创建虚拟环境，所以不会和你系统的 Python 环境冲突，并且不会造成任何污染，保持你的系统环境干净如初。同时，一键卸载脚本也在开发中，敬请期待。
 
 理论上讲，均适用所有的 Mac。
 
