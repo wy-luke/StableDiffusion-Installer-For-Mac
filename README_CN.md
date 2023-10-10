@@ -20,7 +20,7 @@ curl -fsSL https://ghproxy.com/https://raw.githubusercontent.com/wy-luke/StableD
 
 使用 mamba 创建虚拟环境，所以不会和你系统的 Python 环境冲突，并且不会造成任何污染，保持你的系统环境干净如初。同时，一键卸载脚本也在开发中，敬请期待。
 
-理论上讲，均适用所有的 Mac。
+理论上讲，适用于所有的 Mac。
 
 如果你遇到任何问题，或者需要新的功能，欢迎通过[这里](https://github.com/wy-luke/StableDiffusion-Installer-For-Mac/issues/new)与我联系。
 
@@ -42,7 +42,7 @@ curl -fsSL https://ghproxy.com/https://raw.githubusercontent.com/wy-luke/StableD
    curl -fsSL https://ghproxy.com/https://raw.githubusercontent.com/wy-luke/StableDiffusion-Installer-For-Mac/main/sd-installer.sh | /bin/bash -s -- -c
    ```
 
-   该命令会在安装时使用国内源，进行网络加速，包括 homebrew、conda-forge、pip、github 等, 但可能会不稳定或失效, 若安装失败可以尝试重试，还是不行的话，可以通过[这里](https://github.com/wy-luke/StableDiffusion-Installer-For-Mac/issues/new)与我联系。
+   该命令会在安装时使用国内源，进行网络加速，包括 Homebrew、Conda-forge、Pip、Github 等, 但可能会不稳定或失效, 若安装失败可以尝试重试，还是不行的话，可以通过[这里](https://github.com/wy-luke/StableDiffusion-Installer-For-Mac/issues/new)与我联系。
 
 3. 在安装开始时，会提示输入密码，这里是你的 **Mac 登录密码**。
 
