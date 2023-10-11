@@ -1,5 +1,22 @@
 # Changelog
 
+## [2.1.0](https://github.com/wy-luke/StableDiffusion-Installer-For-Mac/compare/v2.0.0...v2.1.0) (2023-10-11)
+
+
+### Features
+
+* **test.yml:** add path filter ([af65aa6](https://github.com/wy-luke/StableDiffusion-Installer-For-Mac/commit/af65aa668cdff75743510000b919bf1878b4b5d5))
+
+
+### Documentation
+
+* add re-run, troubleshooting, models ([d76960d](https://github.com/wy-luke/StableDiffusion-Installer-For-Mac/commit/d76960d1e562e42236cce728e1c980fad7f17ee3))
+* update CHANGELOG ([00a3eaf](https://github.com/wy-luke/StableDiffusion-Installer-For-Mac/commit/00a3eafb76e408878e1ceefd2bea3277be567a27))
+* update docs ([93ea8e1](https://github.com/wy-luke/StableDiffusion-Installer-For-Mac/commit/93ea8e1641ccb35bd56e18daf0996dbe4b8d5ba7))
+* update docs ([2fb45e0](https://github.com/wy-luke/StableDiffusion-Installer-For-Mac/commit/2fb45e0e666fec69471b533fb6ba4023db41d129))
+* update docs ([a6c3b65](https://github.com/wy-luke/StableDiffusion-Installer-For-Mac/commit/a6c3b65b3a5fbebf2a75755fe00bc9ee52e70dd2))
+* update docs ([8ab6c1f](https://github.com/wy-luke/StableDiffusion-Installer-For-Mac/commit/8ab6c1fcba28721523c0d74da45f5cb41b95f7ac))
+
 ## [2.0.0](https://github.com/wy-luke/StableDiffusion-Installer-For-Mac/compare/v1.1.0...v2.0.0) (2023-09-15)
 
 ### Features
