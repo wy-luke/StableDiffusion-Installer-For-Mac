@@ -110,13 +110,15 @@ PYTORCH_MPS_HIGH_WATERMARK_RATIO=0.5 /bin/bash $HOME/stable-diffusion-webui/webu
 
 将下载的模型放置到 `stable-diffusion-webui/models/Stable-diffusion` 文件夹中。然后在浏览器中刷新 Stable Diffusion web UI 页面，就可以在模型列表中看到它。
 
-1. 一些流行的官方 Stable Diffusion 1.x 模型：
+1. 可以在 [Civitai](https://civitai.com/) 下载各种风格的模型，必备网站！
+
+2. 一些流行的官方 Stable Diffusion 1.x 模型：
 
    - [Stable Diffusion 1.4](https://huggingface.co/CompVis/stable-diffusion-v-1-4-original) ([sd-v1-4.ckpt](https://huggingface.co/CompVis/stable-diffusion-v-1-4-original/resolve/main/sd-v1-4.ckpt))
    - [Stable Diffusion 1.5](https://huggingface.co/runwayml/stable-diffusion-v1-5) ([v1-5-pruned-emaonly.ckpt](https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned-emaonly.ckpt))
    - [Stable Diffusion 1.5 Inpainting](https://huggingface.co/runwayml/stable-diffusion-inpainting) ([sd-v1-5-inpainting.ckpt](https://huggingface.co/runwayml/stable-diffusion-inpainting/resolve/main/sd-v1-5-inpainting.ckpt))
 
-2. Stable Diffusion 2.0 和 2.1 模型：
+3. Stable Diffusion 2.0 和 2.1 模型：
 
    - [Stable Diffusion 2.0](https://huggingface.co/stabilityai/stable-diffusion-2) ([768-v-ema.ckpt](https://huggingface.co/stabilityai/stable-diffusion-2/resolve/main/768-v-ema.ckpt))
    - [Stable Diffusion 2.1](https://huggingface.co/stabilityai/stable-diffusion-2-1) ([v2-1_768-ema-pruned.ckpt](https://huggingface.co/stabilityai/stable-diffusion-2-1/resolve/main/v2-1_768-ema-pruned.ckpt))
@@ -130,8 +132,6 @@ PYTORCH_MPS_HIGH_WATERMARK_RATIO=0.5 /bin/bash $HOME/stable-diffusion-webui/webu
    - [Stable Diffusion 2.0 depth model](https://huggingface.co/stabilityai/stable-diffusion-2-depth) ([512-depth-ema.ckpt](https://huggingface.co/stabilityai/stable-diffusion-2-depth/resolve/main/512-depth-ema.ckpt))。
 
    通过按住键盘上的 Option 键并单击[这里](https://github.com/Stability-AI/stablediffusion/raw/main/configs/stable-diffusion/v2-midas-inference.yaml)下载 `v2-midas-inference.yaml` 配置文件，然后按照上述方式以 `.yaml` 结尾的方式重命名它，并与模型放在 `stable-diffusion-webui/models/Stable-diffusion` 文件夹中。请注意，此模型适用于图像尺寸的宽度/高度为 512 或更高，而不是 768。
-
-3. 你还可以在 [civitai](https://civitai.com/) 下载各种类型的模型，这是一个很棒的网站！
 
 ## 脚本优势
 
