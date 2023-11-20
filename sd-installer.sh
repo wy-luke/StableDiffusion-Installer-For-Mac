@@ -299,6 +299,8 @@ source venv/bin/activate
 # Delete pip cache to avoid some errors
 pip cache purge
 
+pip3 install httpx==0.24.1
+
 if [ "$network_connected" == false ]; then
     # Tsinghua mirror has no tb-nightly package, which is needed by basicsr
     # TODO: reset in clean_up
