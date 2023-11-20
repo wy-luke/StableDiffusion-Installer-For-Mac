@@ -199,7 +199,7 @@ fi
 brew update
 
 echo_green "Install the packages required"
-brew install cmake protobuf rust git wget
+# brew install cmake protobuf rust git wget
 # brew install --cask cmake
 
 echo
