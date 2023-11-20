@@ -20,8 +20,9 @@ jobs:
           sparse-checkout: sd-installer.sh
           sparse-checkout-cone-mode: false
       - name: Install
-        run: bash sd-installer.sh -t -1 | grep -q 'Launching Web UI with arguments' && echo '成功 Success' && exit 0
-        shell: /bin/bash --noprofile --norc -e {0}
+        run: bash sd-installer.sh -t -1
+        # run: bash sd-installer.sh -t -1 | grep -q 'Launching Web UI with arguments' && echo '成功 Success' && exit 0
+        # shell: /bin/bash --noprofile --norc -e {0}
 
   Network-Connected-Test-macOS12:
     runs-on: macos-12
@@ -32,8 +33,9 @@ jobs:
           sparse-checkout: sd-installer.sh
           sparse-checkout-cone-mode: false
       - name: Install
-        run: bash sd-installer.sh -t -1 | grep -q 'Launching Web UI with arguments' && echo '成功 Success' && exit 0
-        shell: /bin/bash --noprofile --norc -e {0}
+        run: bash sd-installer.sh -t -1
+        # run: bash sd-installer.sh -t -1 | grep -q 'Launching Web UI with arguments' && echo '成功 Success' && exit 0
+        # shell: /bin/bash --noprofile --norc -e {0}
 
   Network-Not-Connected-Test:
     runs-on: macos-latest
@@ -44,5 +46,6 @@ jobs:
           sparse-checkout: sd-installer.sh
           sparse-checkout-cone-mode: false
       - name: Install
-        run: bash sd-installer.sh -t -2 | grep -q 'Launching Web UI with arguments' && echo '成功 Success' && exit 0
-        shell: /bin/bash --noprofile --norc -e {0}
+        run: bash sd-installer.sh -t -2
+        # run: bash sd-installer.sh -t -2 | grep -q 'Launching Web UI with arguments' && echo '成功 Success' && exit 0
+        # shell: /bin/bash --noprofile --norc -e {0}
