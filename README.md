@@ -12,7 +12,7 @@ Install Stable Diffusion web UI on your Mac **with one sigle command**:
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/wy-luke/StableDiffusion-Installer-For-Mac/main/sd-installer.sh)"
 ```
 
-Use mamba to create virtual environment, so it won't conflict with and won't pollute the Python environment in your system. Keep your Mac system untouched. And the uninstallation script is on the way.
+Use mamba to create virtual environment, so it won't conflict with and won't pollute the Python environment in your system. Keep your Mac system untouched. To uninstall, run the one-click uninstall script below.
 
 Theoretically, it should work on both Apple Silicon and Intel CPU with any version of macOS.
 
@@ -61,6 +61,16 @@ If you move the `stable-diffusion-webui` folder to another path, you need to cha
 ```bash
 /bin/bash /your/path/of/stable-diffusion-webui/webui.sh
 ```
+
+## Uninstall
+
+If you want to remove Stable Diffusion web UI, run the command below:
+
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/wy-luke/StableDiffusion-Installer-For-Mac/main/sd-uninstaller.sh)"
+```
+
+It will remove the `stable-diffusion-webui` folder, the `sd` micromamba environment, and temporary files. Homebrew and its packages will not be removed.
 
 ## Troubleshooting
 
