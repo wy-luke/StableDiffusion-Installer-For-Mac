@@ -56,12 +56,6 @@ If you want to re-run SD after the first usage, use the command below to **re-ru
 /bin/bash $HOME/stable-diffusion-webui/webui.sh
 ```
 
-If you move the `stable-diffusion-webui` folder to another path, you need to change the command above accordingly. Besides, you need always append `/webui.sh` in the end.
-
-```bash
-/bin/bash /your/path/of/stable-diffusion-webui/webui.sh
-```
-
 ## Troubleshooting
 
 ### \*\*\*\* not implemented for 'Half'

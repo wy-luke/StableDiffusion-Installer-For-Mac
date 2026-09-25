@@ -70,12 +70,6 @@ curl -fsSL https://ghproxy.com/https://raw.githubusercontent.com/wy-luke/StableD
 /bin/bash $HOME/stable-diffusion-webui/webui.sh
 ```
 
-如果你移动了 `stable-diffusion-webui` 文件夹的位置，需要把 `$HOME` 更换为你的路径，同时注意 `/webui.sh` 始终要在命令结尾：
-
-```bash
-/bin/bash /your/path/of/stable-diffusion-webui/webui.sh
-```
-
 ## 常见问题
 
 ### \*\*\*\* not implemented for 'Half' 未针对 "half" 实现
