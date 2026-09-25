@@ -18,7 +18,7 @@
 curl -fsSL https://ghproxy.com/https://raw.githubusercontent.com/wy-luke/StableDiffusion-Installer-For-Mac/main/sd-installer.sh | /bin/bash -s -- -c
 ```
 
-使用 mamba 创建虚拟环境，所以不会和你系统的 Python 环境冲突，并且不会造成任何污染，保持你的系统环境干净如初。同时，一键卸载脚本也在开发中，敬请期待。
+使用 mamba 创建虚拟环境，所以不会和你系统的 Python 环境冲突，并且不会造成任何污染，保持你的系统环境干净如初。如需卸载，可使用下面的一键卸载脚本。
 
 理论上讲，适用于所有的 Mac。
 
@@ -75,6 +75,16 @@ curl -fsSL https://ghproxy.com/https://raw.githubusercontent.com/wy-luke/StableD
 ```bash
 /bin/bash /your/path/of/stable-diffusion-webui/webui.sh
 ```
+
+## 卸载
+
+如果你想要卸载 Stable Diffusion web UI，可以使用下面的命令：
+
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/wy-luke/StableDiffusion-Installer-For-Mac/main/sd-uninstaller.sh)"
+```
+
+该命令会删除 `stable-diffusion-webui` 文件夹、`sd` micromamba 环境和临时文件，但不会删除 Homebrew 及其安装的软件包。
 
 ## 常见问题
 
